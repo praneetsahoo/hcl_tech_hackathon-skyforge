@@ -121,8 +121,8 @@ def clean_phone(value):
     Returns ('+91-XXXXXXXXXX' or raw text, is_valid)."""
     text = clean_text(value)
     digits = re.sub(r"\D", "", text)
-    if len(digits) == 12 and digits.startswith("91"):
-        digits = digits[2:]
+    if text.startswith("+91") or (len(digits) == 12 and digits.startswith("91")):
+        digits = digits[2:]              # drop the country code BEFORE counting digits
     if len(digits) == 10:
         return f"+91-{digits}", True
     return (text or None), False
