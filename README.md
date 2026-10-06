@@ -10,6 +10,7 @@ HCLTech AI-Cloud Data Engineering Hackathon. An AWS pipeline that turns RetailBa
 | [docs/DATA_PROFILE.md](docs/DATA_PROFILE.md) | Profile of the raw files before cleaning |
 | [docs/DQ_REPORT.md](docs/DQ_REPORT.md) | Data-quality / rejects report: what was found and how it was handled |
 | [SECURITY.md](SECURITY.md) | Security controls (verified) and known MVP limitations |
+| [docs/DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md) | Demo flow, who says what, likely SME questions |
 | [infra/README.md](infra/README.md) | AWS resources and deployment |
 
 ## Architecture
