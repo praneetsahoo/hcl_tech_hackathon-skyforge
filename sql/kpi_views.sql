@@ -137,7 +137,7 @@ WITH scored AS (
 )
 SELECT transaction_id, account_id, customer_id, customer_name, txn_ts, amount, currency, status,
        txns_in_10_min,
-       CONCAT_WS('; ',
+       CONCAT_WS(' | ',
            CASE WHEN amount_inr > 100000 THEN 'HIGH_VALUE' END,
            CASE WHEN txns_in_10_min >= 3 THEN 'VELOCITY_3_IN_10_MIN' END,
            CASE WHEN HOUR(txn_ts) < 5 THEN 'ODD_HOURS' END) AS risk_reason

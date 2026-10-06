@@ -45,9 +45,10 @@ def get_engine(settings: Settings | None = None) -> Engine:
 
 
 def split_sql(sql: str) -> list[str]:
-    """Split a .sql file into statements: drop '--' comments, split on ';'."""
+    """Split a .sql file into statements: drop '--' comments, then split on a
+    ';' that ends a line (so a ';' inside a text value is left alone)."""
     without_comments = re.sub(r"--[^\n]*", "", sql)
-    return [s.strip() for s in without_comments.split(";") if s.strip()]
+    return [s.strip() for s in re.split(r";[ \t]*(?:\n|$)", without_comments) if s.strip()]
 
 
 def run_sql_file(engine: Engine, path: Path) -> int:
