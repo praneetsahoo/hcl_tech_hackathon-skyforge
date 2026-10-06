@@ -46,6 +46,7 @@ class Settings:
     db_user: str
     db_password_param: str  # SSM parameter name, never the password itself
     db_ssl_ca: str          # RDS CA bundle path ("" = no TLS, local dev only)
+    dashboard_password_param: str  # SSM parameter name for the dashboard login
     log_file: str           # "" = log to console only
 
 
@@ -61,6 +62,7 @@ def get_settings() -> Settings:
         db_user=env.get("RB_DB_USER", "retailbank_app"),
         db_password_param=env.get("RB_DB_PASSWORD_PARAM", "/retailbank/db/app_password"),
         db_ssl_ca=env.get("RB_DB_SSL_CA", ""),
+        dashboard_password_param=env.get("RB_DASHBOARD_PASSWORD_PARAM", "/retailbank/dashboard/password"),
         log_file=env.get("RB_LOG_FILE", ""),
     )
 
