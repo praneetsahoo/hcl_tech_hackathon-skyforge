@@ -39,7 +39,8 @@ RB_DB_SSL_CA=/opt/retailbank/rds-ca.pem
 RB_LOG_FILE=/var/log/retailbank/pipeline.log
 HOME=/var/lib/retailbank
 EOF
-chmod 644 "$ENV_FILE"
+chown root:retailbank "$ENV_FILE"
+chmod 640 "$ENV_FILE"          # no secrets inside, but only the app needs to read it
 touch "$LOG_DIR/pipeline.log" "$LOG_DIR/dashboard.log"
 chown -R retailbank:retailbank "$LOG_DIR"
 
