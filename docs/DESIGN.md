@@ -75,3 +75,19 @@ We use only the services the pipeline needs; the data is small (megabytes), so w
 ## One-minute explanation
 
 "The bank's raw files first land in S3 exactly as received; that's our bronze layer. A Python program on EC2 cleans them: it fixes formats, removes duplicates, and sends rows it can't fix to a quarantine table with a reason. The clean data goes into MySQL on RDS as a star schema, three dimensions and one transaction fact table. Our 13 KPIs are SQL queries on those tables, and a Streamlit dashboard shows them. On Day 2, changed customers get a new history row and corrected transactions update the existing row, so nothing is double-counted. The database is private, passwords are in Parameter Store, and errors are logged in CloudWatch. We skipped Glue and Redshift because our data is small; we'd use them at larger scale."
+
+## Decisions made after seeing the real data
+
+The design above was approved before the data arrived. Profiling ([DATA_PROFILE.md](DATA_PROFILE.md)) changed or sharpened these points:
+
+| Topic | Final decision | Reason |
+| --- | --- | --- |
+| Transaction time | `timestamp` is the truth; a disagreeing `date` column is flagged (`DATE_MISMATCH`), not rejected | 296 rows disagree; rejecting them would lose about a quarter of the data |
+| Ambiguous dates (01/10/2026) | Read day-first (Indian format), flagged `AMBIGUOUS_DATE` | Both readings are valid dates |
+| Duplicate transactions with different values | All versions quarantined (`CONFLICTING_DUPLICATE`) | Never guess money |
+| Duplicate customers/products/branches | Keep the best-quality copy (fewest issues; ties go to the later copy) | Master-data re-sends are safe to collapse |
+| Negative product prices | Made positive, flagged | Each one mirrors a real product's price exactly (sign error) |
+| Money KPIs | Successful INR transactions only, refunds subtracted | Failed/pending moved no money; non-INR has no exchange rate |
+| KYC exposure (KPI 8) | KYC status at the time of the transaction (SCD2 point-in-time) | A later verification does not change past risk |
+| KPI 3 period | True quarter-over-quarter | The data covers 15 months (Jul 2025 to Oct 2026), not 3 |
+| Re-running an older batch | Rows already changed by a newer batch are skipped | Prevents Day 1 from undoing Day 2 corrections |

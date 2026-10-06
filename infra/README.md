@@ -35,3 +35,12 @@ The existing explicit DENY on other projects' parameters was extended to allow `
 - CloudWatch write to `/retailbank/pipeline` allowed
 - `retailbank_app` connects to RDS over TLS (`TLS_AES_256_GCM_SHA384`) and sees only the `retailbank` database
 - PayRecon dashboard moved to port 8080 and healthy; port 80 free for this project
+
+## Deployment (Phase 9)
+
+`infra/deploy.sh` (idempotent, run as root through SSM Run Command) creates the `retailbank` service user, pulls this repo to `/opt/retailbank/app`, builds `/opt/retailbank/venv` from `requirements.txt`, writes `/etc/retailbank/retailbank.env` (no secrets, mode 640), applies the schema and KPI views, installs the `retailbank-dashboard` systemd service on port 80 (non-root, auto-restart), adds the CloudWatch agent config `retailbank-cloudwatch.json`, and health-checks the dashboard. `retailbank-run <batch_id>` runs the pipeline as the service user.
+
+| Endpoint | URL |
+| --- | --- |
+| RetailBank dashboard | http://3.107.194.103 |
+| PayRecon reference dashboard | http://3.107.194.103:8080 |
