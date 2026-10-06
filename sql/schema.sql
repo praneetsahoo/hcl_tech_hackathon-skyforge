@@ -215,3 +215,11 @@ CREATE TABLE IF NOT EXISTS kpi_snapshot (
     metric_value  DECIMAL(18,2) NOT NULL,
     PRIMARY KEY (batch_id, kpi_name, rank_no)
 );
+
+-- Every batch (daily drop) and its business date. Batches are ordered by this
+-- date, so day1, day2, day3, ... can arrive without code changes.
+CREATE TABLE IF NOT EXISTS batch_registry (
+    batch_id       VARCHAR(10) NOT NULL PRIMARY KEY,
+    batch_date     DATE        NOT NULL,
+    registered_at  DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP
+);

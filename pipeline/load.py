@@ -11,16 +11,33 @@ from datetime import date
 
 from sqlalchemy import text
 
-from pipeline.config import BATCH_FILES
+from pipeline.config import BATCH_DATES
 
-BATCH_ORDER = list(BATCH_FILES)       # day1, day2, ... in arrival order
+DEFAULT_BATCH_DATES = {b: date.fromisoformat(d) for b, d in BATCH_DATES.items()}
 
 
-def is_older(batch_a: str, batch_b: str) -> bool:
-    """True when batch_a arrived before batch_b. Used so that re-running an
-    OLD batch can never overwrite data that a NEWER batch already loaded."""
-    rank = lambda b: BATCH_ORDER.index(b) if b in BATCH_ORDER else -1
-    return rank(batch_a) < rank(batch_b)
+def is_older(batch_a: str, batch_b: str, batch_dates: dict | None = None) -> bool:
+    """True when batch_a's business date is before batch_b's. Used so that
+    re-running an OLD batch can never overwrite data a NEWER batch loaded.
+    Batches are ordered by business date (then name), so any number of
+    daily drops (day1, day2, day3, ...) is supported."""
+    dates = batch_dates or DEFAULT_BATCH_DATES
+    key = lambda b: (dates.get(b, date.min), b)
+    return key(batch_a) < key(batch_b)
+
+
+def load_batch_dates(conn) -> dict:
+    """Business date of every batch registered in the database, plus the
+    built-in Day 1 / Day 2 dates."""
+    dates = dict(DEFAULT_BATCH_DATES)
+    for batch_id, batch_date in conn.execute(text("SELECT batch_id, batch_date FROM batch_registry")):
+        dates[batch_id] = batch_date
+    return dates
+
+
+def register_batch(conn, batch_id: str, batch_date: date):
+    conn.execute(text("INSERT INTO batch_registry (batch_id, batch_date) VALUES (:b, :d) "
+                      "ON DUPLICATE KEY UPDATE batch_date = VALUES(batch_date)"), {"b": batch_id, "d": batch_date})
 
 
 FIRST_VALID_FROM = date(1900, 1, 1)   # first version of a key: "known since always"
@@ -67,7 +84,8 @@ def row_hash(record: dict, columns: list[str]) -> str:
 # Dimensions: SCD Type 2 merge
 # ---------------------------------------------------------------------------
 
-def merge_dimension(conn, entity: str, records: list[dict], batch_id: str, batch_date: date) -> dict:
+def merge_dimension(conn, entity: str, records: list[dict], batch_id: str, batch_date: date,
+                    batch_dates: dict | None = None) -> dict:
     """Insert new keys, version business-meaningful changes (SCD2), fix
     minor changes in place (SCD1), and skip unchanged rows (idempotent)."""
     table, key, _sk, attrs, tracked = DIMENSIONS[entity]
@@ -87,7 +105,7 @@ def merge_dimension(conn, entity: str, records: list[dict], batch_id: str, batch
             counts["inserted"] += 1
         elif old["row_hash"] == new_hash:
             counts["unchanged"] += 1
-        elif is_older(batch_id, old["batch_id"]):
+        elif is_older(batch_id, old["batch_id"], batch_dates):
             counts["skipped_newer_exists"] += 1      # a later batch already changed this key
         elif any(_norm(old[c]) != _norm(record[c]) for c in tracked):
             conn.execute(text(f"UPDATE {table} SET is_current = 0, valid_to = :d WHERE {key} = :k AND is_current = 1"),
@@ -129,7 +147,7 @@ def _point_in_time(versions, key, day):
 # Fact: insert new, correct changed, skip identical
 # ---------------------------------------------------------------------------
 
-def load_facts(conn, records: list[dict], batch_id: str, run_id: str) -> dict:
+def load_facts(conn, records: list[dict], batch_id: str, run_id: str, batch_dates: dict | None = None) -> dict:
     customers = _versions(conn, "dim_customer", "account_id", "customer_sk", ", customer_id")
     products = _versions(conn, "dim_product", "product_id", "product_sk")
     branches = _versions(conn, "dim_branch", "branch_id", "branch_sk")
@@ -155,7 +173,7 @@ def load_facts(conn, records: list[dict], batch_id: str, run_id: str) -> dict:
             counts["inserted"] += 1
         elif old["row_hash"] == row["row_hash"]:
             counts["unchanged"] += 1
-        elif is_older(batch_id, old["last_updated_batch_id"]):
+        elif is_older(batch_id, old["last_updated_batch_id"], batch_dates):
             counts["skipped_newer_exists"] += 1      # never undo a later correction
         else:
             changed = [c for c in FACT_COLUMNS if _norm(old[c]) != _norm(row[c])]
@@ -182,12 +200,12 @@ def load_facts(conn, records: list[dict], batch_id: str, run_id: str) -> dict:
 # KPI snapshot: save KPI 1 and KPI 7 after each batch so KPI 11 can compare days
 # ---------------------------------------------------------------------------
 
-def write_kpi_snapshot(conn, batch_id: str) -> bool:
+def write_kpi_snapshot(conn, batch_id: str, batch_dates: dict | None = None) -> bool:
     """Save KPIs 'as of' this batch. Skipped when a NEWER batch has already
     loaded, because the tables then no longer show this batch's state."""
     loaded = {r[0] for r in conn.execute(text(
         "SELECT DISTINCT batch_id FROM pipeline_runs WHERE status = 'SUCCESS'"))}
-    if any(is_older(batch_id, other) for other in loaded):
+    if any(is_older(batch_id, other, batch_dates) for other in loaded):
         return False
     conn.execute(text("DELETE FROM kpi_snapshot WHERE batch_id = :b"), {"b": batch_id})
     conn.execute(text(

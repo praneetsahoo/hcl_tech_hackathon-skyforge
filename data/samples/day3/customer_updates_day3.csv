@@ -1,0 +1,3 @@
+customer_id,customer_name,email,phone,account_id,gender,dob,address,kyc_status,registration_date,transaction_id
+C099,Customer_99,customer_99@example.com,+91-7590175186,A0099,Female,1995-10-17,"224 Main St, Delhi",Verified,2022-01-04,T0662
+C190,Customer_190,customer_190@example.com,+91-9876543210,A0190,Male,1990-05-05,"12 MG Road, Pune",Pending,2026-10-02,T9202

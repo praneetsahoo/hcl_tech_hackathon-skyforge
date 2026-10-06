@@ -30,6 +30,18 @@ BATCH_FILES = {
 }
 
 
+ENTITIES = ("branches", "customers", "products", "transactions")   # load order
+ENTITY_EXTENSION = {"branches": ".csv", "customers": ".csv", "products": ".json", "transactions": ".csv"}
+BATCH_ID_PATTERN = r"^[a-z0-9_]{1,10}$"
+
+
+def validate_batch_id(batch_id: str) -> str:
+    import re
+    if not re.fullmatch(BATCH_ID_PATTERN, batch_id or ""):
+        raise ValueError("batch id must be 1-10 lowercase letters, digits or underscores (e.g. day3)")
+    return batch_id
+
+
 # Business date of each batch: the "current processing date". Transactions
 # after the end of this day are future-dated; Day 2 SCD2 versions start here.
 BATCH_DATES = {"day1": "2026-09-30", "day2": "2026-10-01"}

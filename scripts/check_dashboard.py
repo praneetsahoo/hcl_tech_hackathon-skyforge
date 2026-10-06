@@ -24,7 +24,7 @@ def main():
     print("overview metrics:", {m.label: m.value for m in at.metric[:5]})
     print("tables rendered:", len(at.dataframe), "| charts rendered:",
           sum(1 for el in at.main if el.type in ("arrow_vega_lite_chart", "vega_lite_chart")) or "n/a")
-    ok = not at.exception and not errors and len(at.tabs) == 8
+    ok = not at.exception and not errors and len(at.tabs) == 9
     print("RESULT:", "PASS" if ok else "FAIL")
     raise SystemExit(0 if ok else 1)
 

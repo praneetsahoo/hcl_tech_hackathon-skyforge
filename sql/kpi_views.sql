@@ -250,35 +250,67 @@ GROUP BY s.batch_id, s.source_file, s.records_received, s.records_passed, s.reco
          s.duplicates_removed;
 
 -- ---------------------------------------------------------------------
--- KPI 11: Day-over-day incremental reconciliation
+-- KPI 11: Day-over-day incremental reconciliation for the LATEST batch
+-- (by business date), so it works for day2, day3, ... without changes.
 -- ---------------------------------------------------------------------
-CREATE OR REPLACE VIEW kpi11_incremental_counts AS
-SELECT 'New transactions'           AS metric, COUNT(*) AS record_count FROM fact_transaction WHERE source_batch_id = 'day2'
-UNION ALL
-SELECT 'Corrected transactions',    COUNT(DISTINCT transaction_id) FROM fact_correction_log WHERE batch_id = 'day2'
-UNION ALL
-SELECT 'New customers',             COUNT(*) FROM dim_customer WHERE batch_id = 'day2' AND valid_from = '1900-01-01'
-UNION ALL
-SELECT 'Customers with new version', COUNT(*) FROM dim_customer WHERE valid_from = '2026-10-01'
-UNION ALL
-SELECT 'New products',              COUNT(*) FROM dim_product WHERE batch_id = 'day2' AND valid_from = '1900-01-01'
-UNION ALL
-SELECT 'Products with new version', COUNT(*) FROM dim_product WHERE valid_from = '2026-10-01'
-UNION ALL
-SELECT 'New branches',              COUNT(*) FROM dim_branch WHERE batch_id = 'day2' AND valid_from = '1900-01-01'
-UNION ALL
-SELECT 'Branches with new version', COUNT(*) FROM dim_branch WHERE valid_from = '2026-10-01';
+CREATE OR REPLACE VIEW v_latest_batch AS
+SELECT batch_id, batch_date
+FROM batch_registry
+ORDER BY batch_date DESC, batch_id DESC
+LIMIT 1;
 
--- KPI 1 and KPI 7 after Day 2 compared with after Day 1 (snapshots saved by the pipeline).
+CREATE OR REPLACE VIEW kpi11_incremental_counts AS
+SELECT l.batch_id, 'New transactions' AS metric,
+       (SELECT COUNT(*) FROM fact_transaction f WHERE f.source_batch_id = l.batch_id) AS record_count
+FROM v_latest_batch l
+UNION ALL
+SELECT l.batch_id, 'Corrected transactions',
+       (SELECT COUNT(DISTINCT c.transaction_id) FROM fact_correction_log c WHERE c.batch_id = l.batch_id)
+FROM v_latest_batch l
+UNION ALL
+SELECT l.batch_id, 'New customers',
+       (SELECT COUNT(*) FROM dim_customer d WHERE d.batch_id = l.batch_id AND d.valid_from = '1900-01-01')
+FROM v_latest_batch l
+UNION ALL
+SELECT l.batch_id, 'Customers with new version',
+       (SELECT COUNT(*) FROM dim_customer d WHERE d.valid_from = l.batch_date)
+FROM v_latest_batch l
+UNION ALL
+SELECT l.batch_id, 'New products',
+       (SELECT COUNT(*) FROM dim_product d WHERE d.batch_id = l.batch_id AND d.valid_from = '1900-01-01')
+FROM v_latest_batch l
+UNION ALL
+SELECT l.batch_id, 'Products with new version',
+       (SELECT COUNT(*) FROM dim_product d WHERE d.valid_from = l.batch_date)
+FROM v_latest_batch l
+UNION ALL
+SELECT l.batch_id, 'New branches',
+       (SELECT COUNT(*) FROM dim_branch d WHERE d.batch_id = l.batch_id AND d.valid_from = '1900-01-01')
+FROM v_latest_batch l
+UNION ALL
+SELECT l.batch_id, 'Branches with new version',
+       (SELECT COUNT(*) FROM dim_branch d WHERE d.valid_from = l.batch_date)
+FROM v_latest_batch l;
+
+-- KPI 1 and KPI 7 after the latest batch vs after the previous batch (snapshots saved per batch).
 CREATE OR REPLACE VIEW kpi11_kpi_deltas AS
+WITH ordered AS (
+    SELECT batch_id, ROW_NUMBER() OVER (ORDER BY batch_date DESC, batch_id DESC) AS rn
+    FROM batch_registry
+),
+cur AS (SELECT batch_id FROM ordered WHERE rn = 1),
+prev AS (SELECT batch_id FROM ordered WHERE rn = 2)
 SELECT d2.kpi_name, d2.item_key, d2.item_label,
-       d1.rank_no AS day1_rank, d2.rank_no AS day2_rank,
-       d1.metric_value AS day1_value, d2.metric_value AS day2_value,
+       (SELECT batch_id FROM prev) AS previous_batch, d2.batch_id AS latest_batch,
+       d1.rank_no AS previous_rank, d2.rank_no AS latest_rank,
+       d1.metric_value AS previous_value, d2.metric_value AS latest_value,
        d2.metric_value - COALESCE(d1.metric_value, 0) AS value_change
 FROM kpi_snapshot d2
 LEFT JOIN kpi_snapshot d1
-       ON d1.kpi_name = d2.kpi_name AND d1.item_key = d2.item_key AND d1.batch_id = 'day1'
-WHERE d2.batch_id = 'day2';
+       ON d1.kpi_name = d2.kpi_name AND d1.item_key = d2.item_key
+      AND d1.batch_id = (SELECT batch_id FROM prev)
+WHERE d2.batch_id = (SELECT batch_id FROM cur)
+  AND (SELECT batch_id FROM prev) IS NOT NULL;
 
 -- ---------------------------------------------------------------------
 -- KPI 12: Customers whose KYC status changed (self-join of SCD2 versions:
@@ -292,8 +324,8 @@ JOIN dim_customer o ON o.customer_id = n.customer_id AND o.valid_to = n.valid_fr
 WHERE o.kyc_status <> n.kyc_status;
 
 -- ---------------------------------------------------------------------
--- KPI 13: Accounts whose FIRST ever transaction arrived in Day 2, and whether
--- the customer was newly onboarded in Day 2 (no history before).
+-- KPI 13: Accounts whose FIRST ever transaction arrived in the LATEST batch,
+-- and whether the customer was newly onboarded in that batch (no history before).
 -- ---------------------------------------------------------------------
 CREATE OR REPLACE VIEW kpi13_new_activations AS
 WITH firsts AS (
@@ -306,9 +338,11 @@ first_version AS (
     FROM dim_customer
     WHERE valid_from = '1900-01-01'
 )
-SELECT f.account_id, c.customer_id, c.customer_name, f.transaction_id AS first_transaction_id,
-       f.txn_ts AS first_txn_ts, fv.onboarded_batch = 'day2' AS newly_onboarded
+SELECT f.source_batch_id AS batch_id, f.account_id, c.customer_id, c.customer_name,
+       f.transaction_id AS first_transaction_id, f.txn_ts AS first_txn_ts,
+       fv.onboarded_batch = f.source_batch_id AS newly_onboarded
 FROM firsts f
+JOIN v_latest_batch l ON l.batch_id = f.source_batch_id
 JOIN dim_customer c ON c.account_id = f.account_id AND c.is_current = 1
 JOIN first_version fv ON fv.customer_id = c.customer_id
-WHERE f.rn = 1 AND f.source_batch_id = 'day2';
+WHERE f.rn = 1;
