@@ -182,7 +182,13 @@ def load_facts(conn, records: list[dict], batch_id: str, run_id: str) -> dict:
 # KPI snapshot: save KPI 1 and KPI 7 after each batch so KPI 11 can compare days
 # ---------------------------------------------------------------------------
 
-def write_kpi_snapshot(conn, batch_id: str):
+def write_kpi_snapshot(conn, batch_id: str) -> bool:
+    """Save KPIs 'as of' this batch. Skipped when a NEWER batch has already
+    loaded, because the tables then no longer show this batch's state."""
+    loaded = {r[0] for r in conn.execute(text(
+        "SELECT DISTINCT batch_id FROM pipeline_runs WHERE status = 'SUCCESS'"))}
+    if any(is_older(batch_id, other) for other in loaded):
+        return False
     conn.execute(text("DELETE FROM kpi_snapshot WHERE batch_id = :b"), {"b": batch_id})
     conn.execute(text(
         "INSERT INTO kpi_snapshot (batch_id, kpi_name, rank_no, item_key, item_label, metric_value) "
@@ -193,6 +199,7 @@ def write_kpi_snapshot(conn, batch_id: str):
         "SELECT :b, 'kpi07_branch_ranking', ROW_NUMBER() OVER (ORDER BY region, rank_in_region, branch_id), "
         "       branch_id, CONCAT(region, ' #', rank_in_region), revenue_inr FROM kpi07_branch_ranking"),
         {"b": batch_id})
+    return True
 
 
 # ---------------------------------------------------------------------------
