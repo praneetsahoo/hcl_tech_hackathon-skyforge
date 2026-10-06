@@ -11,6 +11,18 @@ from datetime import date
 
 from sqlalchemy import text
 
+from pipeline.config import BATCH_FILES
+
+BATCH_ORDER = list(BATCH_FILES)       # day1, day2, ... in arrival order
+
+
+def is_older(batch_a: str, batch_b: str) -> bool:
+    """True when batch_a arrived before batch_b. Used so that re-running an
+    OLD batch can never overwrite data that a NEWER batch already loaded."""
+    rank = lambda b: BATCH_ORDER.index(b) if b in BATCH_ORDER else -1
+    return rank(batch_a) < rank(batch_b)
+
+
 FIRST_VALID_FROM = date(1900, 1, 1)   # first version of a key: "known since always"
 OPEN_VALID_TO = date(9999, 12, 31)
 
@@ -61,7 +73,7 @@ def merge_dimension(conn, entity: str, records: list[dict], batch_id: str, batch
     table, key, _sk, attrs, tracked = DIMENSIONS[entity]
     current = {r[key]: dict(r) for r in conn.execute(
         text(f"SELECT * FROM {table} WHERE is_current = 1")).mappings()}
-    counts = {"inserted": 0, "new_version": 0, "updated_in_place": 0, "unchanged": 0}
+    counts = {"inserted": 0, "new_version": 0, "updated_in_place": 0, "unchanged": 0, "skipped_newer_exists": 0}
     insert_sql = text(
         f"INSERT INTO {table} ({key}, {', '.join(attrs)}, valid_from, valid_to, is_current, row_hash, batch_id) "
         f"VALUES (:{key}, {', '.join(':' + a for a in attrs)}, :valid_from, :valid_to, 1, :row_hash, :batch_id)")
@@ -75,6 +87,8 @@ def merge_dimension(conn, entity: str, records: list[dict], batch_id: str, batch
             counts["inserted"] += 1
         elif old["row_hash"] == new_hash:
             counts["unchanged"] += 1
+        elif is_older(batch_id, old["batch_id"]):
+            counts["skipped_newer_exists"] += 1      # a later batch already changed this key
         elif any(_norm(old[c]) != _norm(record[c]) for c in tracked):
             conn.execute(text(f"UPDATE {table} SET is_current = 0, valid_to = :d WHERE {key} = :k AND is_current = 1"),
                          {"d": batch_date, "k": record[key]})
@@ -120,9 +134,10 @@ def load_facts(conn, records: list[dict], batch_id: str, run_id: str) -> dict:
     products = _versions(conn, "dim_product", "product_id", "product_sk")
     branches = _versions(conn, "dim_branch", "branch_id", "branch_sk")
     existing = {r["transaction_id"]: dict(r) for r in conn.execute(
-        text(f"SELECT transaction_id, row_hash, {', '.join(FACT_COLUMNS)} FROM fact_transaction")).mappings()}
+        text(f"SELECT transaction_id, row_hash, last_updated_batch_id, {', '.join(FACT_COLUMNS)} "
+             f"FROM fact_transaction")).mappings()}
 
-    counts = {"inserted": 0, "corrected": 0, "unchanged": 0}
+    counts = {"inserted": 0, "corrected": 0, "unchanged": 0, "skipped_newer_exists": 0}
     to_insert = []
     for record in records:
         day = record["txn_date"]
@@ -140,6 +155,8 @@ def load_facts(conn, records: list[dict], batch_id: str, run_id: str) -> dict:
             counts["inserted"] += 1
         elif old["row_hash"] == row["row_hash"]:
             counts["unchanged"] += 1
+        elif is_older(batch_id, old["last_updated_batch_id"]):
+            counts["skipped_newer_exists"] += 1      # never undo a later correction
         else:
             changed = [c for c in FACT_COLUMNS if _norm(old[c]) != _norm(row[c])]
             conn.execute(text(

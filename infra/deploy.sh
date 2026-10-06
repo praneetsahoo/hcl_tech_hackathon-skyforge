@@ -53,9 +53,9 @@ systemctl daemon-reload
 systemctl enable -q retailbank-dashboard
 systemctl restart retailbank-dashboard
 
-echo "== 7. ship logs to CloudWatch (added next to the existing PayRecon config)"
+echo "== 7. ship logs to CloudWatch (own file name, so it never replaces PayRecon's config)"
 /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a append-config -m ec2 \
-    -c "file:$APP_DIR/infra/cloudwatch-agent.json" -s >/dev/null
+    -c "file:$APP_DIR/infra/retailbank-cloudwatch.json" -s >/dev/null
 /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a status | grep -o '"status": "[a-z]*"' | head -1
 
 echo "== 8. health check"

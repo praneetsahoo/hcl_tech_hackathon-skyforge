@@ -63,7 +63,7 @@ def versions(conn):
 def test_first_load_inserts_and_rerun_is_unchanged(conn):
     assert merge_dimension(conn, "customers", [cust()], "day1", DAY1)["inserted"] == 1
     again = merge_dimension(conn, "customers", [cust()], "day1", DAY1)
-    assert again == {"inserted": 0, "new_version": 0, "updated_in_place": 0, "unchanged": 1}
+    assert again == {"inserted": 0, "new_version": 0, "updated_in_place": 0, "unchanged": 1, "skipped_newer_exists": 0}
 
 
 def test_kyc_change_creates_new_version_and_keeps_history(conn):
@@ -115,7 +115,7 @@ def count_facts(conn):
 def test_fact_insert_then_rerun_unchanged(conn):
     setup_dims(conn)
     assert load_facts(conn, [fact()], "day1", "run1")["inserted"] == 1
-    assert load_facts(conn, [fact()], "day1", "run2") == {"inserted": 0, "corrected": 0, "unchanged": 1}
+    assert load_facts(conn, [fact()], "day1", "run2") == {"inserted": 0, "corrected": 0, "unchanged": 1, "skipped_newer_exists": 0}
     assert count_facts(conn) == 1
 
 
@@ -139,3 +139,22 @@ def test_fact_links_to_customer_version_valid_at_transaction_time(conn):
         "SELECT f.transaction_id, c.kyc_status FROM fact_transaction f "
         "JOIN dim_customer c ON c.customer_sk = f.customer_sk")).fetchall())
     assert rows == {"T_OLD": "Pending", "T_NEW": "Verified"}
+
+
+# ---------- running an OLDER batch after a newer one must not undo newer data ----------
+
+def test_rerunning_day1_after_day2_keeps_day2_customer_version(conn):
+    merge_dimension(conn, "customers", [cust()], "day1", DAY1)
+    merge_dimension(conn, "customers", [cust(kyc_status="Verified")], "day2", DAY2)
+    counts = merge_dimension(conn, "customers", [cust()], "day1", DAY1)        # old data again
+    assert counts["skipped_newer_exists"] == 1
+    assert versions(conn)[-1] == ("Verified", DAY2, date(9999, 12, 31), 1)
+
+
+def test_rerunning_day1_after_day2_keeps_the_correction(conn):
+    setup_dims(conn)
+    load_facts(conn, [fact()], "day1", "run1")
+    load_facts(conn, [fact(status="Success")], "day2", "run2")                 # correction
+    counts = load_facts(conn, [fact()], "day1", "run3")                        # old value again
+    assert counts["skipped_newer_exists"] == 1
+    assert conn.execute(text("SELECT status FROM fact_transaction")).scalar() == "Success"
