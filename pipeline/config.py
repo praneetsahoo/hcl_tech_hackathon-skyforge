@@ -30,6 +30,11 @@ BATCH_FILES = {
 }
 
 
+# Business date of each batch: the "current processing date". Transactions
+# after the end of this day are future-dated; Day 2 SCD2 versions start here.
+BATCH_DATES = {"day1": "2026-09-30", "day2": "2026-10-01"}
+
+
 @dataclass(frozen=True)
 class Settings:
     data_dir: Path          # local folder with raw/<batch_id>/ files

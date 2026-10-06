@@ -7,7 +7,6 @@ amount values (digits replaced by 9, e.g. 2026-09-30 -> 9999-99-99).
 
 Usage:  python -m pipeline.profile_data day1 day2 > docs/DATA_PROFILE.md
 """
-import json
 import re
 import sys
 from collections import Counter
@@ -15,6 +14,7 @@ from collections import Counter
 import pandas as pd
 
 from pipeline.config import BATCH_FILES, get_settings, raw_path
+from pipeline.readers import read_json_salvaging
 
 ID_COLUMNS = {
     "branches": "branch_id",
@@ -27,28 +27,10 @@ SHAPE_COLUMNS = {"date", "timestamp", "amount", "dob", "registration_date",
 MAX_DISTINCT_TO_LIST = 15
 
 
-def read_json_salvaging(text: str):
-    """Parse a JSON array of objects; if the document is broken, recover every
-    object that still parses on its own. Returns (records, error_message)."""
-    try:
-        return json.loads(text), ""
-    except json.JSONDecodeError as exc:
-        error = f"{exc.msg} at line {exc.lineno}, column {exc.colno}"
-    decoder, records, pos = json.JSONDecoder(), [], 0
-    while (start := text.find("{", pos)) != -1:
-        try:
-            obj, end = decoder.raw_decode(text, start)
-            records.append(obj)
-            pos = end
-        except json.JSONDecodeError:
-            pos = start + 1
-    return records, error
-
-
 def load_as_text(path) -> tuple[pd.DataFrame, str]:
     """Load a CSV or JSON file with every value kept as text."""
     if path.suffix == ".json":
-        records, error = read_json_salvaging(path.read_text(encoding="utf-8"))
+        records, error, _lost = read_json_salvaging(path.read_text(encoding="utf-8"))
         df = pd.DataFrame(records).astype(object)
         df = df.where(df.notna(), "<missing>").astype(str)
         return df, error
