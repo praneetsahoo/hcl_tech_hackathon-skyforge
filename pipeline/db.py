@@ -17,6 +17,7 @@ from sqlalchemy.engine import URL, Engine
 from pipeline.config import REPO_ROOT, Settings, get_settings
 
 SCHEMA_FILE = REPO_ROOT / "sql" / "schema.sql"
+VIEWS_FILE = REPO_ROOT / "sql" / "kpi_views.sql"
 
 
 def get_db_password(settings: Settings) -> str:
@@ -58,7 +59,8 @@ def run_sql_file(engine: Engine, path: Path) -> int:
 
 
 def apply_schema(engine: Engine) -> int:
-    return run_sql_file(engine, SCHEMA_FILE)
+    """Create tables, then (re)create the KPI views. Safe to run repeatedly."""
+    return run_sql_file(engine, SCHEMA_FILE) + run_sql_file(engine, VIEWS_FILE)
 
 
 if __name__ == "__main__":

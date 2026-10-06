@@ -162,6 +162,23 @@ def load_facts(conn, records: list[dict], batch_id: str, run_id: str) -> dict:
 
 
 # ---------------------------------------------------------------------------
+# KPI snapshot: save KPI 1 and KPI 7 after each batch so KPI 11 can compare days
+# ---------------------------------------------------------------------------
+
+def write_kpi_snapshot(conn, batch_id: str):
+    conn.execute(text("DELETE FROM kpi_snapshot WHERE batch_id = :b"), {"b": batch_id})
+    conn.execute(text(
+        "INSERT INTO kpi_snapshot (batch_id, kpi_name, rank_no, item_key, item_label, metric_value) "
+        "SELECT :b, 'kpi01_top_customers', ROW_NUMBER() OVER (ORDER BY rank_no, customer_id), "
+        "       customer_id, customer_name, net_value_inr FROM kpi01_top_customers"), {"b": batch_id})
+    conn.execute(text(
+        "INSERT INTO kpi_snapshot (batch_id, kpi_name, rank_no, item_key, item_label, metric_value) "
+        "SELECT :b, 'kpi07_branch_ranking', ROW_NUMBER() OVER (ORDER BY region, rank_in_region, branch_id), "
+        "       branch_id, CONCAT(region, ' #', rank_in_region), revenue_inr FROM kpi07_branch_ranking"),
+        {"b": batch_id})
+
+
+# ---------------------------------------------------------------------------
 # Data-quality outputs (replaced for the batch on every run -> idempotent)
 # ---------------------------------------------------------------------------
 

@@ -20,7 +20,7 @@ from pipeline.cleanse import apply_referential_checks, process_entity
 from pipeline.config import BATCH_DATES, BATCH_FILES, get_settings, raw_path
 from pipeline.db import get_engine
 from pipeline.ingest import file_metadata, upload_bronze, upload_quarantine
-from pipeline.load import dimension_keys, load_facts, merge_dimension, write_dq
+from pipeline.load import dimension_keys, load_facts, merge_dimension, write_dq, write_kpi_snapshot
 
 log = logging.getLogger("pipeline")
 
@@ -73,6 +73,7 @@ def run(batch_id: str, settings=None, engine=None) -> dict:
             apply_referential_checks(results["transactions"], *dimension_keys(conn))
             fact_counts = load_facts(conn, results["transactions"].clean, batch_id, run_id)
             write_dq(conn, batch_id, run_id, list(results.values()), ingestion)
+            write_kpi_snapshot(conn, batch_id)
 
             totals = {
                 "rows_read": sum(r.received for r in results.values()),
