@@ -42,10 +42,14 @@ def run(batch_id: str, settings=None, engine=None) -> dict:
     run_id = str(uuid.uuid4())
     log.info("run %s started for batch %s", run_id, batch_id)
 
-    engine = engine or get_engine(settings)
-    with engine.begin() as conn:            # audit row survives even if the load fails
-        conn.execute(text("INSERT INTO pipeline_runs (run_id, batch_id, started_at, status) "
-                          "VALUES (:r, :b, :t, 'RUNNING')"), {"r": run_id, "b": batch_id, "t": datetime.now()})
+    try:
+        engine = engine or get_engine(settings)
+        with engine.begin() as conn:        # audit row survives even if the load fails
+            conn.execute(text("INSERT INTO pipeline_runs (run_id, batch_id, started_at, status) "
+                              "VALUES (:r, :b, :t, 'RUNNING')"), {"r": run_id, "b": batch_id, "t": datetime.now()})
+    except Exception as exc:                # e.g. database unreachable: nothing was changed
+        log.error("ERROR run %s for batch %s could not start (database unreachable?): %s", run_id, batch_id, exc)
+        raise
     try:
         from pipeline.readers import read_source
         # ---- bronze + silver ----
