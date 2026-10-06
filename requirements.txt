@@ -1,0 +1,16 @@
+# Data processing
+pandas==2.2.3
+
+# Database (RDS MySQL 8)
+SQLAlchemy==2.0.36
+PyMySQL==1.1.1
+cryptography          # needed by PyMySQL for MySQL 8 auth and TLS
+
+# AWS (S3, SSM Parameter Store) — credentials come from the EC2 IAM role
+boto3
+
+# Dashboard
+streamlit==1.40.2
+
+# Tests
+pytest==8.3.4

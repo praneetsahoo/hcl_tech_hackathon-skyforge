@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+
+# Secrets and local settings — never commit
+.env
+*.pem
+*.key
+
+# Pipeline outputs (generated per run; the raw inputs in data/raw/ ARE committed)
+data/bronze/
+data/quarantine/
+logs/
+*.log
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store

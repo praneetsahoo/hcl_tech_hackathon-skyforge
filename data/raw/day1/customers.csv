@@ -1,0 +1,258 @@
+customer_id,customer_name,email,phone,account_id,gender,dob,address,kyc_status,registration_date,transaction_id
+C134,Customer_134,customer_134@example.com,+91-9970629620,A0134,Male,1985-04-26,"104 Linking Rd, Delhi",Verified,2023-08-04,T1135
+C1181,Customer_99,customer_99@@example.com,+91-7590175186,A1181,Female,1995-10-17,"224 Main St, Delhi",Pending,2022-01-04,T0662
+C145,Customer_145,customer_145@example.com,+91-8902330307,A0145,Female,1967-03-03,"52 Linking Rd, Delhi",Pending,2023-02-17,T0951
+C118,Customer_118,customer_118@example.com,+91-3132912127,A0118,Female,1979-05-26,"478 Linking Rd, Pune",Verified,2025-01-04,T0734
+C006,Customer_6,customer_6@example.com,+91-4160529751,A0006,Female,1992-06-21,"448 Church St, Mumbai",Verified,2023-11-20,T1207
+C039,Customer_39,customer_39@example.com,+91-3950047974,A0039,Female,1976-08-06,"550 MG Road, Mumbai",Pending,2020-07-02,T0542
+C103,Customer_103,customer_103@example.com,+91-3611155426,A0103,Female,1961-05-09,"793 Church St, Chennai",Rejected,2026-08-05,T0293
+C1182,Customer_39,customer_39@@example.com,+91-3950047974,A1182,Female,1976-08-06,"550 MG Road, Mumbai",Pending,2020-07-02,T0542
+C097,Customer_97,customer_97@example.com,+91-2544948126,A0097,Female,2003-05-03,"941 MG Road, Bangalore",Rejected,2020-06-03,T0272
+C072,Customer_72,customer_72@example.com,+91-3984546156,A0072,Male,1976-08-14,"471 Park Ave, Delhi",Rejected,2021-07-14,T0615
+C099,Customer_99,customer_99@example.com,+91-7590175186,A0099,Female,1995-10-17,"224 Main St, Delhi",Pending,2022-01-04,T0662
+C4214,Customer_153,customer_153@example.com,+91-3816846022,A4214,Male,1901-10-15,"206 Linking Rd, Pune",Rejected,2024-02-18,T0294
+C2194,Customer_27,customer_27@example.com,+91-84858333,A2194,Male,1961-09-24,"69 Brigade Rd, Kolkata",Pending,2023-04-18,T1162
+C7251,Customer_14,customer_14@example.com,+91-8505423573,A7251,Male,1992-12-26,"  232 brigade rd, chennai   ",Verified,2022-04-26,T0208
+C056,Customer_56,customer_56@example.com,+91-7851910883,A0056,Male,2002-02-22,"587 Park Ave, Chennai",Verified,2022-09-05,T1066
+C001,Customer_1,customer_1@example.com,+91-4455022961,A0001,Male,1971-03-09,"146 Station Rd, Hyderabad",Verified,2024-12-12,T0441
+C1176,Customer_111,,+91-0564814917,A1176,Female,1965-08-04,"467 Park Ave, Kolkata",Verified,2024-08-08,T1161
+C016,Customer_16,customer_16@example.com,+91-3834735977,A0016,Female,1995-04-11,"788 Linking Rd, Pune",Rejected,2024-11-30,T0858
+C086,Customer_86,customer_86@example.com,+91-4388899375,A0086,Male,1963-11-06,"401 Main St, Chennai",Pending,2019-04-11,T0989
+C2199,Customer_141,customer_141@example.com,4066658004,A2199,Male,2001-11-18,"577 Church St, Mumbai",Pending,2025-01-02,T0705
+C135,Customer_135  ,CUSTOMER_135@EXAMPLE.COM,+91-4310698720,A0135,Female,1980-04-03,"370 MG Road, Pune",Verified,2022-04-21,T1281
+C109,Customer_109,customer_109@example.com,+91-5691463031,A0109,Male,2003-02-14,"947 Main St, Mumbai",Pending,2025-11-12,T1247
+C4215,Customer_14,customer_14@example.com,+91-8505423573,A4215,Male,1901-09-05,"232 Brigade Rd, Chennai",Verified,2022-04-26,T0208
+C013,Customer_13,customer_13@example.com,+91-1925462914,A0013,Male,1984-11-27,"573 Main St, Kolkata",Verified,2026-07-07,T1079
+C009,Customer_9,customer_9@example.com,+91-2717744905,A0009,Female,1983-05-13,"520 MG Road, Bangalore",Pending,2024-01-26,T0078
+C114,Customer_114,customer_114@example.com,+91-1744518705,A0114,Male,1990-12-20,"206 Linking Rd, Bangalore",Rejected,2025-12-25,T0497
+C4213,Customer_83,customer_83@example.com,+91-6519398280,A4213,Female,2028-12-25,"976 Station Rd, Ahmedabad",Rejected,2021-05-08,T0898
+C027,Customer_27,customer_27@example.com,+91-6582029702,A0027,Male,1961-09-24,"69 Brigade Rd, Kolkata",Pending,2023-04-18,T1162
+C128,Customer_128,customer_128@example.com,+91-2525002921,A0128,Female,1973-01-27,"867 Park Ave, Kolkata",Verified,2023-03-11,T0811
+C135,Customer_135,customer_135@example.com,+91-4310698720,A0135,Female,1980-04-03,"370 MG Road, Pune",Verified,2022-04-21,T1281
+C124,Customer_124,customer_124@example.com,+91-6383806578,A0124,Female,1967-04-24,"801 Main St, Kolkata",Rejected,2024-08-19,T0659
+C2188,Customer_115,customer_115@example.com,+91-3055488510  ,A2188,Female,1988-01-15,"555 Linking Rd, Hyderabad",Pending,2019-01-06,T0771
+C045,Customer_45,customer_45@example.com,+91-2636897028,A0045,Female,1992-07-27,"213 Park Ave, Kolkata",Rejected,2024-05-13,T1077
+C2189,Customer_23,customer_23@example.com,7261493316,A2189,Male,1986-08-10,"301 Brigade Rd, Hyderabad",Verified,2019-06-21,T0647
+C130,Customer_130,customer_130@example.com,+91-4220969029,A0130,Female,1982-07-11,"326 Church St, Delhi",Rejected,2025-05-05,T0214
+C053,Customer_53,customer_53@example.com,+91-5161227530,A0053,Female,2001-03-24,"268 Main St, Delhi",Pending,2021-12-29,T0676
+C068,Customer_68,customer_68@example.com,+91-0932048996,A0068,Female,1992-02-19,"303 Brigade Rd, Delhi",Pending,2021-07-31,T0778
+C062,Customer_62,customer_62@example.com,+91-2843959953,A0062,Male,1960-01-24,"310 Brigade Rd, Delhi",Pending,2022-05-15,T0564
+C007,Customer_7,customer_7@example.com,+91-1645352181,A0007,Female,2002-01-03,"544 Park Ave, Delhi",Pending,2022-12-09,T0303
+C4720,Customer_55,customer_55@example.com,+91-3272795687,A4720,Female,,"776 Park Ave, Delhi",Verified,2026-08-18,T1221
+C5226,Customer_159,customer_159@example.com,+91-6761847230,A5226,Male,1965-05-22,"309 Main St, Mumbai",verified,2024-11-01,T0553
+C148,Customer_148,customer_148@example.com,+91-4944665743,A0148,Male,1975-01-28,"478 Linking Rd, Pune",Rejected,2020-02-24,T0016
+C4216,Customer_161,customer_161@example.com,+91-2087375300,A4216,Female,2028-07-10,"688 MG Road, Mumbai",Rejected,2026-07-03,T1012
+C088,Customer_88,customer_88@example.com,+91-4010512382,A0088,Female,1961-01-10,"566 Brigade Rd, Kolkata",Rejected,2023-10-13,T0947
+C025,Customer_25,customer_25@example.com,+91-2775841616,A0025,Female,1985-06-01,"617 Church St, Chennai",Rejected,2022-04-18,T0658
+C2197,Customer_10,customer_10@example.com,+91-03424420,A2197,Male,1988-01-30,"978 Church St, Hyderabad",Pending,2025-05-30,T0386
+C091,Customer_91,customer_91@example.com,+91-9249912513,A0091,Female,1996-01-29,"313 MG Road, Chennai",Pending,2020-08-02,T1047
+C120,Customer_120,customer_120@example.com,+91-8044206788,A0120,Female,1990-07-20,"256 MG Road, Ahmedabad",Verified,2020-07-26,T0249
+C043,Customer_43,customer_43@example.com,+91-4705516940,A0043,Female,2005-07-02,"612 Main St, Bangalore",Rejected,2025-06-27,T1183
+C059,Customer_59,customer_59@example.com,+91-6567661825,A0059,Male,1967-02-24,"122 Brigade Rd, Pune",Rejected,2020-06-05,T0457
+C1180,Customer_165,customer_165example.com,+91-7296590277,A1180,Female,2006-01-16,"116 Main St, Ahmedabad",Verified,2019-09-17,T0536
+C024,Customer_24,customer_24@example.com,+91-6874034505,A0024,Female,2001-03-28,"280 MG Road, Kolkata",Pending,2023-06-27,T0901
+C6239,Customer_115,customer_115@example.com,+91-9738320603,A6239,Female,1988-01-15,"555 Linking Rd, Hyderabad",Pending,13-05-2021,T0771
+C131,Customer_131,customer_131@example.com,+91-5135521570,A0131,Female,1967-08-14,"272 Brigade Rd, Delhi",Rejected,2019-10-05,T0718
+C067,Customer_67,customer_67@example.com,+91-7854458771,A0067,Female,1989-02-24,"823 Station Rd, Ahmedabad",Pending,2021-04-12,T0760
+C2192,Customer_31,customer_31@example.com,+91-2922169958  ,A2192,Male,1973-01-11,"133 Park Ave, Mumbai",Verified,2022-06-20,T0816
+C049,Customer_49,customer_49@example.com,+91-0833016571,A0049,Male,1976-10-01,"698 Church St, Chennai",Verified,2025-03-04,T0324
+C015,Customer_15,customer_15@example.com,+91-9296222927,A0015,Male,1985-03-19,"45 Main St, Kolkata",Rejected,2021-08-30,T0910
+C4718,Customer_90,customer_90@example.com,+91-2553714785,A4718,Male,,"612 Main St, Pune",Rejected,2020-04-12,T0713
+C6236,Customer_96,customer_96@example.com,+91-1339596292,A6236,Male,1994-05-23,"804 Brigade Rd, Delhi",Verified,2020/11/16,T0719
+C154,Customer_154,customer_154@example.com,+91-1752500743,A0154,Female,1971-03-07,"780 Church St, Chennai",Rejected,2020-10-10,T1003
+C074,Customer_74,customer_74@example.com,+91-0339740148,A0074,Male,2002-05-20,"578 Station Rd, Hyderabad",Verified,2022-07-12,T0033
+C1174,Customer_159,customer_159@@example.com,+91-6761847230,A1174,Male,1965-05-22,"309 Main St, Mumbai",Rejected,2024-11-01,T0553
+C3207,Customer_11,customer_11@example.com,+91-8207151820,A3207,M,1997-09-02,"254 Station Rd, Ahmedabad",Pending,2024-11-16,T1071
+C6242,Customer_76,customer_76@example.com,+91-1631599965,A6242,Female,1959-10-26,"31 Station Rd, Bangalore",Pending,01/11/2025,T0468
+C021,Customer_21,customer_21@example.com,+91-4609539621,A0021,Male,1967-11-18,"537 Linking Rd, Mumbai",Rejected,2025-02-06,T1040
+C126,Customer_126,customer_126@example.com,+91-8039652239,A0126,Male,1978-11-29,"326 Church St, Kolkata",Rejected,2019-04-26,T0721
+C080,Customer_80,customer_80@example.com,+91-2244472126,A0080,Male,1989-02-26,"283 Main St, Bangalore",Pending,2019-11-12,T0740
+C5227,Customer_136,customer_136@example.com,+91-1032417146,A5227,Female,1972-11-29,"483 Main St, Bangalore",pending ,2026-03-14,T1115
+C6241,Customer_12,customer_12@example.com,+91-5466590515,A6241,Male,1987-08-25,"97 Park Ave, Pune",Pending,01-03-2020,T1235
+C7245,Customer_7,customer_7@example.com,+91-1645352181,A7245,Female,2002-01-03,"  544 park ave, delhi   ",Pending,2022-12-09,T0303
+C4212,Customer_11,customer_11@example.com,+91-8207151820,A4212,Female,2028-08-09,"254 Station Rd, Ahmedabad",Pending,2024-11-16,T1071
+C117,Customer_117,customer_117@example.com,+91-8261990623,A0117,Male,1963-07-29,"299 Linking Rd, Kolkata",Pending,2022-08-29,T0652
+C5230,Customer_3,customer_3@example.com,+91-7976438156,A5230,Female,1993-01-15,"114 Linking Rd, Ahmedabad",rejected,2026-06-25,T0632
+C087,Customer_87,customer_87@example.com,+91-6112545738,A0087,Male,1981-07-03,"495 Linking Rd, Ahmedabad",Verified,2023-11-30,T0927
+C6235,Customer_133,customer_133@example.com,+91-1040541152,A6235,Male,1995-06-27,"910 Main St, Chennai",Rejected,2019-12-04,T1121
+C066,Customer_66,customer_66@example.com,+91-3540331739,A0066,Male,1998-01-03,"721 Brigade Rd, Pune",Verified,2025-03-11,T0659
+C2187,Customer_147,customer_147@example.com,3758997571,A2187,Female,1957-06-18,"526 MG Road, Hyderabad",Pending,2020-06-25,T0355
+C127,Customer_127,customer_127@example.com,+91-3784270103,A0127,Male,2005-07-08,"617 Brigade Rd, Hyderabad",Rejected,2024-05-11,T0002
+C7250,Customer_19,customer_19@example.com,+91-5220472779,A7250,Female,1963-11-21,"  6 mg road, hyderabad   ",Pending,2021-06-02,T0307
+C038,Customer_38,customer_38@example.com,+91-2595327877,A0038,Female,1977-04-10,"901 Linking Rd, Ahmedabad",Verified,2020-01-04,T0806
+C095,Customer_95,customer_95@example.com,+91-8580783613,A0095,Male,1979-01-13,"305 Church St, Hyderabad",Pending,2021-12-12,T0714
+C029,Customer_29,customer_29@example.com,+91-8681447394,A0029,Male,1999-10-09,"711 Main St, Delhi",Verified,2020-07-09,T0152
+C7246,Customer_118,customer_118@example.com,+91-3132912127,A7246,Female,1979-05-26,"  478 linking rd, pune   ",Verified,2025-01-04,T0734
+C148,Customer_148  ,CUSTOMER_148@EXAMPLE.COM,+91-4944665743,A0148,Male,1975-01-28,"478 Linking Rd, Pune",Rejected,2020-02-24,T0016
+C020,Customer_20,customer_20@example.com,+91-4341036971,A0020,Female,1964-12-22,"114 Church St, Ahmedabad",Rejected,2025-01-04,T0034
+C084,Customer_84,customer_84@example.com,+91-6724342661,A0084,Female,1961-03-16,"460 Park Ave, Ahmedabad",Rejected,2023-06-30,T1095
+C152,Customer_152,customer_152@example.com,+91-1353465549,A0152,Male,1985-02-10,"302 Main St, Mumbai",Pending,2019-08-08,T1300
+C090,Customer_90,customer_90@example.com,+91-2553714785,A0090,Male,2003-03-02,"612 Main St, Pune",Rejected,2020-04-12,T0713
+C070,Customer_70,customer_70@example.com,+91-0062312038,A0070,Male,1961-09-01,"467 Linking Rd, Hyderabad",Rejected,2026-02-25,T1263
+C115,Customer_115,customer_115@example.com,+91-9738320603,A0115,Female,1988-01-15,"555 Linking Rd, Hyderabad",Pending,2019-01-06,T0771
+C121,Customer_121,customer_121@example.com,+91-3236519941,A0121,Male,1960-07-13,"23 MG Road, Delhi",Rejected,2023-12-22,T0264
+C7248,Customer_10,customer_10@example.com,+91-4119986798,A7248,Male,1988-01-30,"  978 church st, hyderabad   ",Pending,2025-05-30,T0386
+C5229,Customer_144,customer_144@example.com,+91-6913736785,A5229,Female,1979-03-04,"841 MG Road, Chennai",verified,2022-06-28,T1038
+C3206,Customer_97,customer_97@example.com,+91-2544948126,A3206,MALE,2003-05-03,"941 MG Road, Bangalore",Rejected,2020-06-03,T0272
+C052,Customer_52,customer_52@example.com,+91-1527420549,A0052,Female,1972-04-19,"691 Church St, Delhi",Verified,2025-11-07,T0831
+C4719,Customer_57,customer_57@example.com,+91-3971870728,A4719,Female,,"426 Main St, Hyderabad",Rejected,2024-03-08,T0632
+C8252,Customer_65,customer_65@example.com,+91-1751830469,A0046,Male,1984-08-18,"618 MG Road, Mumbai",Verified,2025-08-03,T1145
+C004,Customer_4,customer_4@example.com,+91-6900343244,A0004,Male,1974-10-13,"336 MG Road, Hyderabad",Pending,2023-10-30,T0360
+C9256,Customer_59,customer_59@example.com,+91-6567661825,,Male,1967-02-24,"122 Brigade Rd, Pune",Rejected,2020-06-05,T0457
+C160,Customer_160,customer_160@example.com,+91-1891411739,A0160,Male,1992-07-29,"205 Church St, Bangalore",Rejected,2021-04-06,T0734
+C2196,Customer_106,customer_106@example.com,6846081062,A2196,Male,2001-06-13,"247 Main St, Mumbai",Rejected,2019-02-19,T0740
+C105,Customer_105,customer_105@example.com,+91-5652341389,A0105,Male,1989-06-14,"615 Station Rd, Bangalore",Rejected,2019-04-20,T0618
+C107,Customer_107,customer_107@example.com,+91-6965827109,A0107,Female,1966-11-03,"70 MG Road, Bangalore",Verified,2019-06-13,T0124
+C010,Customer_10,customer_10@example.com,+91-4119986798,A0010,Male,1988-01-30,"978 Church St, Hyderabad",Pending,2025-05-30,T0386
+C136,Customer_136,customer_136@example.com,+91-1032417146,A0136,Female,1972-11-29,"483 Main St, Bangalore",Verified,2026-03-14,T1115
+C164,Customer_164,customer_164@example.com,+91-6746762120,A0164,Male,1990-12-15,"966 Church St, Chennai",Verified,2023-09-01,T1210
+C034,Customer_34,customer_34@example.com,+91-4981829922,A0034,Female,1966-03-25,"675 Park Ave, Kolkata",Rejected,2019-06-18,T0059
+C151,Customer_151,customer_151@example.com,+91-3875842824,A0151,Male,1985-10-14,"100 Main St, Chennai",Rejected,2021-11-25,T1145
+C069,Customer_69,customer_69@example.com,+91-8547772522,A0069,Male,1999-10-18,"738 Park Ave, Ahmedabad",Verified,2025-01-29,T0121
+C157,Customer_157,customer_157@example.com,+91-9856257532,A0157,Female,2001-09-04,"971 Church St, Pune",Verified,2021-07-24,T0460
+C6234,Customer_7,customer_7@example.com,+91-1645352181,A6234,Female,2002-01-03,"544 Park Ave, Delhi",Pending,2022/08/05,T0303
+C139,Customer_139,customer_139@example.com,+91-6089899217,A0139,Female,1962-01-31,"178 Brigade Rd, Delhi",Verified,2020-05-31,T0088
+C036,Customer_36,customer_36@example.com,+91-1027677359,A0036,Female,1995-09-09,"148 Linking Rd, Kolkata",Rejected,2022-11-15,T0817
+C108,Customer_108,customer_108@example.com,+91-4866618892,A0108,Female,2000-06-13,"285 MG Road, Bangalore",Verified,2024-09-25,T0417
+C3209,Customer_72,customer_72@example.com,+91-3984546156,A3209,female,1976-08-14,"471 Park Ave, Delhi",Rejected,2021-07-14,T0615
+C5225,Customer_56,customer_56@example.com,+91-7851910883,A5225,Male,2002-02-22,"587 Park Ave, Chennai",PENDING,2022-09-05,T1066
+C083,Customer_83,customer_83@example.com,+91-6519398280,A0083,Female,1980-02-23,"976 Station Rd, Ahmedabad",Rejected,2021-05-08,T0898
+C5223,Customer_93,customer_93@example.com,+91-5072368876,A5223,Female,1959-10-23,"702 Main St, Pune", Verified,2023-12-24,T1001
+C004,Customer_4  ,CUSTOMER_4@EXAMPLE.COM,+91-6900343244,A0004,Male,1974-10-13,"336 MG Road, Hyderabad",Pending,2023-10-30,T0360
+C1177,Customer_64, customer_64@example.com ,+91-7334270866,A1177,Male,2003-04-05,"571 Park Ave, Chennai",Pending,2021-09-21,T0523
+C063,Customer_63,customer_63@example.com,+91-9268705685,A0063,Male,2004-12-11,"714 Main St, Pune",Verified,2022-05-13,T0771
+C4721,Customer_85,customer_85@example.com,+91-0589113529,A4721,Female,,"46 Park Ave, Pune",Pending,2023-10-30,T0217
+C7247,Customer_85,customer_85@example.com,+91-0589113529,A7247,Female,2003-10-10,"  46 park ave, pune   ",Pending,2023-10-30,T0217
+C046,Customer_46,customer_46@example.com,+91-2785854973,A0046,Female,1983-02-24,"981 Brigade Rd, Bangalore",Rejected,2022-05-07,T0461
+C058,Customer_58,customer_58@example.com,+91-4039106518,A0058,Male,1990-07-10,"62 MG Road, Ahmedabad",Verified,2022-03-21,T0838
+C060,Customer_60,customer_60@example.com,+91-4786863375,A0060,Male,1957-01-14,"159 Linking Rd, Delhi",Rejected,2020-04-07,T0066
+C123,Customer_123,customer_123@example.com,+91-4720999347,A0123,Male,1979-09-02,"422 Park Ave, Ahmedabad",Verified,2019-12-26,T0573
+C144,Customer_144,customer_144@example.com,+91-6913736785,A0144,Female,1979-03-04,"841 MG Road, Chennai",Verified,2022-06-28,T1038
+C5233,Customer_115,customer_115@example.com,+91-9738320603,A5233,Female,1988-01-15,"555 Linking Rd, Hyderabad",pending ,2019-01-06,T0771
+C093,Customer_93,customer_93@example.com,+91-5072368876,A0093,Female,1959-10-23,"702 Main St, Pune",Rejected,2023-12-24,T1001
+C071,Customer_71,customer_71@example.com,+91-0088600848,A0071,Female,1998-10-08,"294 MG Road, Pune",Verified,2020-03-14,T0198
+C112,Customer_112,customer_112@example.com,+91-2419138000,A0112,Male,1987-12-27,"251 MG Road, Ahmedabad",Pending,2023-04-18,T0308
+C2200,Customer_1,customer_1@example.com,7359893347,A2200,Male,1971-03-09,"146 Station Rd, Hyderabad",Verified,2024-12-12,T0441
+C064,Customer_64,customer_64@example.com,+91-7334270866,A0064,Male,2003-04-05,"571 Park Ave, Chennai",Pending,2021-09-21,T0523
+C3205,Customer_31,customer_31@example.com,+91-2370589578,A3205,Unknown,1973-01-11,"133 Park Ave, Mumbai",Verified,2022-06-20,T0816
+C6237,Customer_132,customer_132@example.com,+91-0067626765,A6237,Female,1964-09-10,"560 Main St, Mumbai",Pending,2024-12-24,T0462
+C044,Customer_44,customer_44@example.com,+91-9728962309,A0044,Male,1959-08-10,"971 Station Rd, Mumbai",Verified,2019-03-19,T0904
+C110,Customer_110,customer_110@example.com,+91-2102027588,A0110,Male,1982-09-30,"802 Church St, Bangalore",Verified,2023-03-04,T0260
+C7249,Customer_23,customer_23@example.com,+91-8527722170,A7249,Male,1986-08-10,"  301 brigade rd, hyderabad   ",Verified,2019-06-21,T0647
+C094,Customer_94,customer_94@example.com,+91-9034043842,A0094,Male,1962-06-01,"800 Main St, Ahmedabad",Rejected,2024-09-23,T0232
+C040,Customer_40,customer_40@example.com,+91-5060983584,A0040,Female,1991-03-06,"76 Main St, Ahmedabad",Rejected,2022-02-19,T1277
+C1183,Customer_143,customer_143example.com,+91-7450544471,A1183,Male,1959-06-04,"996 Church St, Delhi",Verified,2022-05-15,T0908
+C155,Customer_155,customer_155@example.com,+91-9666676008,A0155,Male,1966-08-11,"205 Station Rd, Kolkata",Verified,2022-08-12,T1088
+C9253,Customer_143,customer_143@example.com,+91-7450544471,,Male,1959-06-04,"996 Church St, Delhi",Verified,2022-05-15,T0908
+C5224,Customer_76,customer_76@example.com,+91-1631599965,A5224,Female,1959-10-26,"31 Station Rd, Bangalore", Verified,2024-07-02,T0468
+C082,Customer_82,customer_82@example.com,+91-4593752654,A0082,Female,1967-03-19,"753 Station Rd, Ahmedabad",Rejected,2021-09-19,T0668
+C058,Customer_58  ,CUSTOMER_58@EXAMPLE.COM,+91-4039106518,A0058,Male,1990-07-10,"62 MG Road, Ahmedabad",Verified,2022-03-21,T0838
+C161,Customer_161,customer_161@example.com,+91-2087375300,A0161,Female,1981-07-01,"688 MG Road, Mumbai",Rejected,2026-07-03,T1012
+C5222,Customer_85,customer_85@example.com,+91-0589113529,A5222,Female,2003-10-10,"46 Park Ave, Pune",PENDING,2023-10-30,T0217
+C6240,Customer_125,customer_125@example.com,+91-2059304078,A6240,Female,1979-04-06,"367 Church St, Delhi",Verified,09/08/2026,T0508
+C061,Customer_61,customer_61@example.com,+91-3311907903,A0061,Female,1956-05-27,"759 MG Road, Pune",Pending,2021-08-17,T1106
+C033,Customer_33,customer_33@example.com,+91-8242253584,A0033,Male,1966-02-20,"867 MG Road, Bangalore",Verified,2026-02-14,T1129
+C5231,Customer_30,customer_30@example.com,+91-7155188442,A5231,Female,1970-06-28,"729 Station Rd, Chennai",pending ,2024-09-14,T0460
+C085,Customer_85,customer_85@example.com,+91-0589113529,A0085,Female,2003-10-10,"46 Park Ave, Pune",Pending,2023-10-30,T0217
+C125,Customer_125,customer_125@example.com,+91-2059304078,A0125,Female,1979-04-06,"367 Church St, Delhi",Verified,2020-02-15,T0508
+C149,Customer_149,customer_149@example.com,+91-9944171545,A0149,Female,2005-05-15,"883 Linking Rd, Bangalore",Rejected,2026-04-22,T0612
+C051,Customer_51,customer_51@example.com,+91-7240049915,A0051,Male,1990-08-13,"292 Main St, Ahmedabad",Verified,2024-08-27,T0959
+C026,Customer_26,customer_26@example.com,+91-5447962757,A0026,Male,1962-03-08,"44 Station Rd, Kolkata",Rejected,2023-11-17,T0563
+C1171,Customer_87,,+91-6112545738,A1171,Male,1981-07-03,"495 Linking Rd, Ahmedabad",Verified,2023-11-30,T0927
+C018,Customer_18,customer_18@example.com,+91-1375060685,A0018,Male,1994-04-01,"242 Main St, Mumbai",Pending,2021-07-08,T0058
+C5228,Customer_122,customer_122@example.com,+91-1070296670,A5228,Male,1984-09-29,"392 Station Rd, Pune",rejected,2022-12-20,T0440
+C5232,Customer_89,customer_89@example.com,+91-2266093796,A5232,Male,1991-05-04,"399 MG Road, Delhi", Verified,2022-02-14,T0129
+C1178,Customer_124,customer_124example.com,+91-6383806578,A1178,Female,1967-04-24,"801 Main St, Kolkata",Rejected,2024-08-19,T0659
+C119,Customer_119,customer_119@example.com,+91-4741124903,A0119,Male,1995-07-18,"856 Church St, Kolkata",Verified,2020-01-09,T0509
+C1185,Customer_14,,+91-8505423573,A1185,Male,1992-12-26,"232 Brigade Rd, Chennai",Verified,2022-04-26,T0208
+C014,Customer_14,customer_14@example.com,+91-8505423573,A0014,Male,1992-12-26,"232 Brigade Rd, Chennai",Verified,2022-04-26,T0208
+C146,Customer_146,customer_146@example.com,+91-0357972798,A0146,Female,1966-02-11,"359 Linking Rd, Chennai",Pending,2026-09-22,T0186
+C047,Customer_47,customer_47@example.com,+91-3757584419,A0047,Female,1980-12-05,"693 Park Ave, Pune",Pending,2022-11-14,T0300
+C030,Customer_30,customer_30@example.com,+91-7155188442,A0030,Female,1970-06-28,"729 Station Rd, Chennai",Pending,2024-09-14,T0460
+C050,Customer_50,customer_50@example.com,+91-7345401938,A0050,Female,1997-09-04,"757 Station Rd, Hyderabad",Verified,2023-09-08,T0361
+C065,Customer_65,customer_65@example.com,+91-1751830469,A0065,Male,1984-08-18,"618 MG Road, Mumbai",Verified,2025-08-03,T1145
+C158,Customer_158,customer_158@example.com,+91-0982150648,A0158,Male,1973-12-12,"639 MG Road, Hyderabad",Rejected,2020-03-18,T0041
+C4211,Customer_40,customer_40@example.com,+91-5060983584,A4211,Female,2028-11-08,"76 Main St, Ahmedabad",Rejected,2022-02-19,T1277
+C048,Customer_48,customer_48@example.com,+91-4157473384,A0048,Female,1958-10-10,"956 Park Ave, Bangalore",Verified,2020-03-23,T1261
+C042,Customer_42,customer_42@example.com,+91-8729825952,A0042,Female,1997-07-02,"403 Park Ave, Bangalore",Rejected,2022-10-09,T1039
+C6238,Customer_131,customer_131@example.com,+91-5135521570,A6238,Female,1967-08-14,"272 Brigade Rd, Delhi",Rejected,2026-01-11,T0718
+C132,Customer_132,customer_132@example.com,+91-0067626765,A0132,Female,1964-09-10,"560 Main St, Mumbai",Pending,2025-06-25,T0462
+C2198,Customer_143,customer_143@example.com,+91 05719 83863,A2198,Male,1959-06-04,"996 Church St, Delhi",Verified,2022-05-15,T0908
+C106,Customer_106,customer_106@example.com,+91-9836403761,A0106,Male,2001-06-13,"247 Main St, Mumbai",Rejected,2019-02-19,T0740
+C055,Customer_55,customer_55@example.com,+91-3272795687,A0055,Female,1974-10-24,"776 Park Ave, Delhi",Verified,2026-08-18,T1221
+C089,Customer_89,customer_89@example.com,+91-2266093796,A0089,Male,1991-05-04,"399 MG Road, Delhi",Verified,2022-02-14,T0129
+C054,Customer_54,customer_54@example.com,+91-0453017426,A0054,Female,2006-05-25,"703 Park Ave, Bangalore",Rejected,2020-04-25,T0605
+C079,Customer_79,customer_79@example.com,+91-0158199560,A0079,Female,1964-04-07,"299 Main St, Pune",Verified,2025-04-10,T0498
+C022,Customer_22,customer_22@example.com,+91-7065405153,A0022,Male,1990-01-11,"751 Station Rd, Mumbai",Rejected,2022-09-23,T0274
+C141,Customer_141,customer_141@example.com,+91-6162299911,A0141,Male,2001-11-18,"577 Church St, Mumbai",Pending,2025-01-02,T0705
+C138,Customer_138,customer_138@example.com,+91-5869380686,A0138,Male,1962-09-09,"989 Park Ave, Ahmedabad",Rejected,2021-08-23,T0976
+C9255,Customer_148,customer_148@example.com,+91-4944665743,,Male,1975-01-28,"478 Linking Rd, Pune",Rejected,2020-02-24,T0016
+C153,Customer_153,customer_153@example.com,+91-3816846022,A0153,Male,1997-05-13,"206 Linking Rd, Pune",Rejected,2024-02-18,T0294
+C147,Customer_147,customer_147@example.com,+91-6029333346,A0147,Female,1957-06-18,"526 MG Road, Hyderabad",Pending,2020-06-25,T0355
+C6243,Customer_50,customer_50@example.com,+91-7345401938,A6243,Female,1997-09-04,"757 Station Rd, Hyderabad",Verified,2026-04-02,T0361
+C011,Customer_11,customer_11@example.com,+91-8207151820,A0011,Female,1997-09-02,"254 Station Rd, Ahmedabad",Pending,2024-11-16,T1071
+C032,Customer_32,customer_32@example.com,+91-6691251778,A0032,Female,2002-02-28,"353 Brigade Rd, Chennai",Verified,2023-11-08,T1030
+C3202,Customer_48,customer_48@example.com,+91-4157473384,A3202,F,1958-10-10,"956 Park Ave, Bangalore",Verified,2020-03-23,T1261
+C143,Customer_143,customer_143@example.com,+91-7450544471,A0143,Male,1959-06-04,"996 Church St, Delhi",Verified,2022-05-15,T0908
+C142,Customer_142,customer_142@example.com,+91-6799702462,A0142,Female,1978-09-12,"634 Park Ave, Pune",Verified,2023-06-10,T0679
+C003,Customer_3,customer_3@example.com,+91-7976438156,A0003,Female,1993-01-15,"114 Linking Rd, Ahmedabad",Rejected,2026-06-25,T0632
+C096,Customer_96,customer_96@example.com,+91-1339596292,A0096,Male,1994-05-23,"804 Brigade Rd, Delhi",Verified,2025-05-24,T0719
+C081,Customer_81  ,CUSTOMER_81@EXAMPLE.COM,+91-7993712406,A0081,Female,1977-02-14,"341 Church St, Pune",Pending,2023-12-09,T0686
+C2186,Customer_114,customer_114@example.com,+91-1994883755  ,A2186,Male,1990-12-20,"206 Linking Rd, Bangalore",Rejected,2025-12-25,T0497
+C1173,Customer_134,customer_134@@example.com,+91-9970629620,A1173,Male,1985-04-26,"104 Linking Rd, Delhi",Verified,2023-08-04,T1135
+C077,Customer_77,customer_77@example.com,+91-6629619431,A0077,Female,2004-08-12,"85 Linking Rd, Chennai",Pending,2026-02-09,T0316
+C037,Customer_37,customer_37@example.com,+91-8815371473,A0037,Male,1988-03-29,"145 MG Road, Hyderabad",Pending,2023-04-23,T1261
+C163,Customer_163,customer_163@example.com,+91-1100225579,A0163,Female,1993-03-21,"275 Station Rd, Mumbai",Pending,2022-11-04,T0375
+C076,Customer_76,customer_76@example.com,+91-1631599965,A0076,Female,1959-10-26,"31 Station Rd, Bangalore",Pending,2024-07-02,T0468
+C140,Customer_140,customer_140@example.com,+91-6329451168,A0140,Female,1962-01-11,"407 Park Ave, Kolkata",Pending,2024-10-29,T0939
+C3204,Customer_132,customer_132@example.com,+91-0067626765,A3204,Other,1964-09-10,"560 Main St, Mumbai",Pending,2025-06-25,T0462
+C3203,Customer_45,customer_45@example.com,+91-2636897028,A3203,F,1992-07-27,"213 Park Ave, Kolkata",Rejected,2024-05-13,T1077
+C101,Customer_101,customer_101@example.com,+91-2424154152,A0101,Female,1973-02-24,"54 Main St, Bangalore",Rejected,2021-08-17,T0880
+C2191,Customer_81,customer_81@example.com,+91-27080869,A2191,Female,1977-02-14,"341 Church St, Pune",Pending,2023-12-09,T0686
+C035,Customer_35,customer_35@example.com,+91-9439690784,A0035,Male,1959-01-29,"658 Linking Rd, Ahmedabad",Verified,2026-09-06,T0832
+C057,Customer_57,customer_57@example.com,+91-3971870728,A0057,Female,1965-06-05,"426 Main St, Hyderabad",Rejected,2024-03-08,T0632
+C7244,Customer_40,customer_40@example.com,+91-5060983584,A7244,Female,1991-03-06,"  76 main st, ahmedabad   ",Rejected,2022-02-19,T1277
+C041,Customer_41,customer_41@example.com,+91-1655852398,A0041,Male,1966-07-18,"412 Park Ave, Hyderabad",Verified,2019-06-09,T0281
+C122,Customer_122,customer_122@example.com,+91-1070296670,A0122,Male,1984-09-29,"392 Station Rd, Pune",Verified,2022-12-20,T0440
+C008,Customer_8,customer_8@example.com,+91-2432921277,A0008,Male,1964-03-22,"773 Park Ave, Ahmedabad",Rejected,2025-05-01,T1280
+C145,Customer_145  ,CUSTOMER_145@EXAMPLE.COM,+91-8902330307,A0145,Female,1967-03-03,"52 Linking Rd, Delhi",Pending,2023-02-17,T0951
+C3210,Customer_143,customer_143@example.com,+91-7450544471,A3210,,1959-06-04,"996 Church St, Delhi",Verified,2022-05-15,T0908
+C102,Customer_102,customer_102@example.com,+91-0371293870,A0102,Male,1963-07-16,"9 Station Rd, Kolkata",Verified,2023-09-26,T0271
+C098,Customer_98,customer_98@example.com,+91-5367294667,A0098,Male,1968-02-14,"78 Station Rd, Mumbai",Pending,2024-10-12,T0570
+C113,Customer_113,customer_113@example.com,+91-8635365419,A0113,Male,1958-03-04,"382 MG Road, Hyderabad",Verified,2021-07-03,T1057
+C2195,Customer_104,customer_104@example.com,+91 22885 15879,A2195,Male,2002-08-05,"704 Main St, Delhi",Verified,2020-02-16,T0287
+C073,Customer_73,customer_73@example.com,+91-1666870021,A0073,Male,1957-11-04,"512 Church St, Pune",Rejected,2022-09-18,T1159
+C023,Customer_23,customer_23@example.com,+91-8527722170,A0023,Male,1986-08-10,"301 Brigade Rd, Hyderabad",Verified,2019-06-21,T0647
+C156,Customer_156,customer_156@example.com,+91-0335421689,A0156,Male,1956-08-10,"314 Brigade Rd, Mumbai",Verified,2022-05-06,T0596
+C078,Customer_78,customer_78@example.com,+91-5110475412,A0078,Female,1983-05-30,"90 Brigade Rd, Pune",Pending,2025-03-31,T1137
+C1175,Customer_25,customer_25@@example.com,+91-2775841616,A1175,Female,1985-06-01,"617 Church St, Chennai",Rejected,2022-04-18,T0658
+C3201,Customer_20,customer_20@example.com,+91-4341036971,A3201,MALE,1964-12-22,"114 Church St, Ahmedabad",Rejected,2025-01-04,T0034
+C075,Customer_75,customer_75@example.com,+91-6142939685,A0075,Male,1967-12-08,"394 Church St, Chennai",Rejected,2019-11-18,T1026
+C028,Customer_28,customer_28@example.com,+91-7557192856,A0028,Male,1968-10-06,"322 Station Rd, Bangalore",Verified,2020-04-09,T0054
+C129,Customer_129,customer_129@example.com,+91-4522675289,A0129,Male,1985-03-12,"806 Linking Rd, Delhi",Rejected,2025-08-09,T0360
+C092,Customer_92,customer_92@example.com,+91-9296627828,A0092,Female,1992-07-09,"171 Main St, Bangalore",Verified,2021-02-05,T0645
+C019,Customer_19,customer_19@example.com,+91-5220472779,A0019,Female,1963-11-21,"6 MG Road, Hyderabad",Pending,2021-06-02,T0307
+C4717,Customer_24,customer_24@example.com,+91-6874034505,A4717,Female,,"280 MG Road, Kolkata",Pending,2023-06-27,T0901
+C1179,Customer_89,customer_89example.com,+91-2266093796,A1179,Male,1991-05-04,"399 MG Road, Delhi",Verified,2022-02-14,T0129
+C012,Customer_12,customer_12@example.com,+91-5466590515,A0012,Male,1987-08-25,"97 Park Ave, Pune",Pending,2021-10-29,T1235
+C150,Customer_150,customer_150@example.com,+91-8309652074,A0150,Male,1968-06-13,"266 Main St, Pune",Pending,2019-05-25,T1195
+C2190,Customer_128,customer_128@example.com,+91-3516091779  ,A2190,Female,1973-01-27,"867 Park Ave, Kolkata",Verified,2023-03-11,T0811
+C2193,Customer_5,customer_5@example.com,916934654722,A2193,Male,1989-02-09,"471 MG Road, Kolkata",Rejected,2023-10-25,T1175
+C017,Customer_17,customer_17@example.com,+91-9240758181,A0017,Male,1972-11-30,"292 MG Road, Chennai",Pending,2024-01-15,T1052
+C159,Customer_159,customer_159@example.com,+91-6761847230,A0159,Male,1965-05-22,"309 Main St, Mumbai",Rejected,2024-11-01,T0553
+C1184,Customer_157,CUSTOMER_157@EXAMPLE.COM,+91-9856257532,A1184,Female,2001-09-04,"971 Church St, Pune",Verified,2021-07-24,T0460
+C165,Customer_165,customer_165@example.com,+91-7296590277,A0165,Female,2006-01-16,"116 Main St, Ahmedabad",Verified,2019-09-17,T0536
+C002,Customer_2,customer_2@example.com,+91-7525459910,A0002,Female,1992-08-31,"160 Brigade Rd, Hyderabad",Rejected,2019-12-01,T0558
+C137,Customer_137,customer_137@example.com,+91-5652704774,A0137,Female,1971-08-03,"232 Church St, Bangalore",Rejected,2019-09-10,T0310
+C031,Customer_31,customer_31@example.com,+91-2370589578,A0031,Male,1973-01-11,"133 Park Ave, Mumbai",Verified,2022-06-20,T0816
+C1172,Customer_133,CUSTOMER_133@EXAMPLE.COM,+91-1040541152,A1172,Male,1995-06-27,"910 Main St, Chennai",Rejected,2019-11-04,T1121
+C9254,Customer_19,customer_19@example.com,+91-5220472779,,Female,1963-11-21,"6 MG Road, Hyderabad",Pending,2021-06-02,T0307
+C005,Customer_5,customer_5@example.com,+91-8388516060,A0005,Male,1989-02-09,"471 MG Road, Kolkata",Rejected,2023-10-25,T1175
+C081,Customer_81,customer_81@example.com,+91-7993712406,A0081,Female,1977-02-14,"341 Church St, Pune",Pending,2023-12-09,T0686
+C111,Customer_111,customer_111@example.com,+91-0564814917,A0111,Female,1965-08-04,"467 Park Ave, Kolkata",Verified,2024-08-08,T1161
+C104,Customer_104,customer_104@example.com,+91-9092753269,A0104,Male,2002-08-05,"704 Main St, Delhi",Verified,2020-02-16,T0287
+C162,Customer_162,customer_162@example.com,+91-8114374470,A0162,Male,1963-01-30,"103 Church St, Chennai",Verified,2022-04-05,T0738
+C116,Customer_116,customer_116@example.com,+91-3836702410,A0116,Female,1964-04-29,"944 Brigade Rd, Pune",Rejected,2023-03-06,T0939
+C100,Customer_100,customer_100@example.com,+91-8929750017,A0100,Female,1985-04-20,"17 MG Road, Chennai",Pending,2024-02-13,T0002
+C3208,Customer_110,customer_110@example.com,+91-2102027588,A3208,MALE,1982-09-30,"802 Church St, Bangalore",Verified,2023-03-04,T0260
+C133,Customer_133,customer_133@example.com,+91-1040541152,A0133,Male,1995-06-27,"910 Main St, Chennai",Rejected,2019-11-04,T1121

@@ -1,0 +1,182 @@
+[
+  {
+    "product_id": "P024",
+    "product_name": "Product_24",
+    "product_type": "Fixed Deposit",
+    "price": 12412,
+    "launch_date": "2022-04-21",
+    "is_active": true,
+    "category": "SME",
+    "vendor_name": "Vendor_24"
+  },
+  {
+    "product_id": "P072",
+    "product_name": "Product_72",
+    "product_type": "Savings Account",
+    "price": 31181,
+    "launch_date": "2021-07-04",
+    "is_active": true,
+    "category": "SME",
+    "vendor_name": "Vendor_72"
+  },
+  {
+    "product_id": "P011",
+    "product_name": "Product_11",
+    "product_type": "Savings Account",
+    "price": 4285,
+    "launch_date": "2018-07-16",
+    "is_active": true,
+    "category": "Retail",
+    "vendor_name": "Vendor_11"
+  },
+  {
+    "product_id": "P037",
+    "product_name": "Product_37",
+    "product_type": "Credit Card",
+    "price": 42086,
+    "launch_date": "2022-11-12",
+    "is_active": true,
+    "category": "Corporate",
+    "vendor_name": "Vendor_37"
+  },
+  {
+    "product_id": "P004",
+    "product_name": "Product_4",
+    "product_type": "Loan",
+    "price": 7029,
+    "launch_date": "2025-07-01",
+    "is_active": false,
+    "category": "Corporate",
+    "vendor_name": "Vendor_4"
+  },
+  {
+    "product_id": "P008",
+    "product_name": "Product_8",
+    "product_type": "Loan",
+    "price": 25120,
+    "launch_date": "2017-03-15",
+    "is_active": false,
+    "category": "Corporate",
+    "vendor_name": "Vendor_8"
+  },
+  {
+    "product_id": "P299",
+    "product_name": "Product_2",
+    "product_type": "Fixed Deposit",
+    "price": 100,
+    "launch_date": "2018-09-23",
+    "is_active": false,
+    "category": "Corporate",
+    "vendor_name": "Vendor_2"
+  },
+  {
+    "product_id": "P066",
+    "product_name": "Product_66",
+    "product_type": "Loan",
+    "price": 7245,
+    "launch_date": "2020-01-21",
+    "is_active": false,
+    "category": "Corporate",
+    "vendor_name": "Vendor_66"
+  },
+  {
+    "product_id": "P051",
+    "product_name": "Product_51",
+    "product_type": "Credit Card",
+    "price": 11678,
+    "launch_date": "2018-04-07",
+    "is_active": true,
+    "category": "Corporate",
+    "vendor_name": "Vendor_51"
+  },
+  {
+    "product_id": "P402",
+    "product_name": "",
+    "product_type": "Credit Card",
+    "price": 33592,
+    "launch_date": "2017-04-01",
+    "is_active": false,
+    "category": "Corporate",
+    "vendor_name": "Vendor_77"
+  },
+  {
+    "product_id": "P096",
+    "product_name": "Product_96",
+    "product_type": "Loan",
+    "price": 14449,
+    "launch_date": "2026-10-01",
+    "is_active": true,
+    "category": "SME",
+    "vendor_name": "Vendor_96"
+  },
+  {
+    "product_id": "P097",
+    "product_name": "Product_97",
+    "product_type": "Credit Card",
+    "price": 29584,
+    "launch_date": "2026-10-01",
+    "is_active": true,
+    "category": "SME",
+    "vendor_name": "Vendor_97"
+  },
+  {
+    "product_id": "P098",
+    "product_name": "Product_98",
+    "product_type": "Loan",
+    "price": 10549,
+    "launch_date": "2026-10-01",
+    "is_active": true,
+    "category": "Corporate",
+    "vendor_name": "Vendor_98"
+  },
+  {
+    "product_id": "P099",
+    "product_name": "Product_99",
+    "product_type": "Loan",
+    "price": 42626,
+    "launch_date": "2026-10-01",
+    "is_active": true,
+    "category": "SME",
+    "vendor_name": "Vendor_99"
+  },
+  {
+    "product_id": "P100",
+    "product_name": "Product_100",
+    "product_type": "Fixed Deposit",
+    "price": 45052,
+    "launch_date": "2026-10-01",
+    "is_active": true,
+    "category": "SME",
+    "vendor_name": "Vendor_100"
+  },
+  {
+    "product_id": "P101",
+    "product_name": "Product_101",
+    "product_type": "Fixed Deposit",
+    "price": 31438,
+    "launch_date": "2026-10-01",
+    "is_active": true,
+    "category": "Retail",
+    "vendor_name": "Vendor_101"
+  },
+  {
+    "product_id": "P102",
+    "product_name": "Product_102",
+    "product_type": "Credit Card",
+    "price": 16531,
+    "launch_date": "2026-10-01",
+    "is_active": true,
+    "category": "Corporate",
+    "vendor_name": "Vendor_102"
+  },
+  {
+    "product_id": "P103",
+    "product_name": "Product_103",
+    "product_type": "Savings Account",
+    "price": 11263,
+    "launch_date": "2026-10-01",
+    "is_active": true,
+    "category": "Retail",
+    "vendor_name": "Vendor_103"
+  }
+]
