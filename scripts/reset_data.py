@@ -13,8 +13,7 @@ from pipeline.db import get_engine
 
 # children before parents (foreign keys)
 TABLES = ["fact_correction_log", "fact_transaction", "dim_customer", "dim_product", "dim_branch",
-          "dq_quarantine", "dq_scorecard", "dq_issue_counts", "ingestion_log", "kpi_snapshot", "pipeline_runs",
-          "batch_registry"]
+          "dq_quarantine", "dq_scorecard", "dq_issue_counts", "ingestion_log", "kpi_snapshot", "pipeline_runs"]
 
 
 def main():

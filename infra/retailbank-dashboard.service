@@ -9,7 +9,7 @@ User=retailbank
 Group=retailbank
 WorkingDirectory=/opt/retailbank/app
 EnvironmentFile=/etc/retailbank/retailbank.env
-ExecStart=/opt/retailbank/venv/bin/streamlit run dashboard/app.py --server.port 80 --server.address 0.0.0.0 --server.headless true --browser.gatherUsageStats false --client.showErrorDetails false --server.maxUploadSize 20
+ExecStart=/opt/retailbank/venv/bin/streamlit run dashboard/app.py --server.port 80 --server.address 0.0.0.0 --server.headless true --browser.gatherUsageStats false --client.showErrorDetails false
 Restart=on-failure
 RestartSec=5
 # bind port 80 without running as root

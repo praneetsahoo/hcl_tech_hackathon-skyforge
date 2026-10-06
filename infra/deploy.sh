@@ -47,9 +47,6 @@ chown -R retailbank:retailbank "$LOG_DIR"
 echo "== 5. database schema + KPI views"
 sudo -u retailbank env $(grep -v '^#' "$ENV_FILE" | xargs) "$VENV/bin/python" -m pipeline.db apply-schema
 
-echo "== 5b. official Day 1 / Day 2 files into the S3 landing zone (skips files already there)"
-sudo -u retailbank env $(grep -v '^#' "$ENV_FILE" | xargs) "$VENV/bin/python" -m scripts.seed_landing | tail -2
-
 echo "== 6. dashboard service on port 80"
 install -m 644 "$APP_DIR/infra/retailbank-dashboard.service" /etc/systemd/system/retailbank-dashboard.service
 install -m 755 "$APP_DIR/infra/run_pipeline.sh" /usr/local/bin/retailbank-run

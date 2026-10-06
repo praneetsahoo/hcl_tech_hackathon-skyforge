@@ -215,17 +215,3 @@ CREATE TABLE IF NOT EXISTS kpi_snapshot (
     metric_value  DECIMAL(18,2) NOT NULL,
     PRIMARY KEY (batch_id, kpi_name, rank_no)
 );
-
--- Every batch (daily drop) and its business date. Batches are ordered by this
--- date, so day1, day2, day3, ... can arrive without code changes.
-CREATE TABLE IF NOT EXISTS batch_registry (
-    batch_id       VARCHAR(10) NOT NULL PRIMARY KEY,
-    batch_date     DATE        NOT NULL,
-    registered_at  DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
-
--- Backfill: Day 1 / Day 2 loaded before the registry existed (safe to re-run).
-INSERT IGNORE INTO batch_registry (batch_id, batch_date)
-SELECT DISTINCT batch_id, CASE batch_id WHEN 'day1' THEN DATE '2026-09-30' ELSE DATE '2026-10-01' END
-FROM pipeline_runs
-WHERE status = 'SUCCESS' AND batch_id IN ('day1', 'day2');

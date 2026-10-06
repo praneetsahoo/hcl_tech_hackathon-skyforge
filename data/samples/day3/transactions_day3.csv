@@ -1,7 +1,0 @@
-transaction_id,account_id,product_id,branch_id,date,timestamp,amount,payment_method,status,currency,remarks,is_refund
-T9201,A0099,P037,B031,2026-10-02,2026-10-02 10:15:00,25000,UPI,Success,INR,Bill Payment,False
-T9202,A0190,P011,B069,2026-10-02,2026-10-02 11:30:00,15000,NetBanking,Success,INR,Salary Credit,False
-T9203,A0078,P037,B031,2026-10-02,2026-10-02 12:00:00,5000,Card,Success,INR,Online Purchase,False
-T9203,A0078,P037,B031,2026-10-02,2026-10-02 12:00:00,5000,Card,Success,INR,Online Purchase,False
-T9204,A9999,P037,B031,2026-10-02,2026-10-02 13:00:00,1000,UPI,Success,INR,Fund Transfer,False
-T9001,A0078,P037,B031,09/30/2026,2026-09-30 02:36:00,135000,UPI,Success,INR,Online Purchase [late correction],N

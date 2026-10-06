@@ -37,5 +37,5 @@ def test_wrong_password_rejected(app):
 
 def test_database_down_shows_friendly_error_not_crash(app):
     log_in(app, "correct-horse")
-    assert len(app.tabs) == 9 and not app.exception
+    assert len(app.tabs) == 8 and not app.exception
     assert any("could not load" in e.value for e in app.error)

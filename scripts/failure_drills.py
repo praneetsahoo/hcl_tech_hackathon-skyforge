@@ -85,7 +85,7 @@ def main():
         f.write("T9999,A0069,P014,B041,2026-10-01,2026-10-01 12:00:00,1500,UPI,Success,INR,Drill,False\n")
     original = rp.write_kpi_snapshot
 
-    def crash(*args, **kwargs):
+    def crash(conn, batch_id):
         raise RuntimeError("simulated crash after facts were written")
     rp.write_kpi_snapshot = crash
     try:
@@ -101,22 +101,18 @@ def main():
     bad_db = dataclasses.replace(no_s3, db_host="127.0.0.1", db_port=1)
     code = None
     try:
-        rp.run("day2", bad_db)  # noqa
+        rp.run("day2", bad_db)
     except Exception as exc:
         code = type(exc).__name__
     report("4 database unreachable", code is not None and snapshot(engine) == real_before,
            f"failed fast with {code}; real data unchanged")
 
-    # 5a. a batch with no files in the landing zone
-    code = rp.main(["--batch-id", "day9", "--batch-date", "2026-12-01"])
-    report("5a batch with no files fails cleanly", code == 1 and last_run(engine)[0] == "FAILED",
-           f"exit code {code}, run={last_run(engine)[0]}")
-    # 5b. an unsafe batch id is refused before anything runs
+    # 5. unknown batch id from the command line
     try:
-        rp.main(["--batch-id", "../etc"])
-        report("5b unsafe batch id rejected", False, "accepted")
+        rp.main(["--batch-id", "day9"])
+        report("5 unknown batch rejected", False, "accepted")
     except SystemExit as exc:
-        report("5b unsafe batch id rejected", exc.code == 2, f"exit code {exc.code} (refused by argparse)")
+        report("5 unknown batch rejected", exc.code == 2, f"exit code {exc.code} (argparse refused it)")
 
     # 6. truncated JSON (an object cut off mid-way) -> quarantined, not a crash
     text_ = (base.data_dir / "raw/day2/products_day2.json").read_text()

@@ -16,9 +16,7 @@ import streamlit as st
 from sqlalchemy import text
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))   # import the pipeline package
-from datetime import date, timedelta                                 # noqa: E402
-from pipeline.config import (BATCH_DATES, BATCH_FILES, ENTITIES, ENTITY_EXTENSION,  # noqa: E402
-                             get_settings, validate_batch_id)
+from pipeline.config import BATCH_FILES, get_settings              # noqa: E402
 from pipeline.db import get_engine                                 # noqa: E402
 
 log = logging.getLogger("dashboard")
@@ -104,46 +102,22 @@ def login() -> bool:
 # Sidebar: run a batch through the same pipeline code
 # ---------------------------------------------------------------------------
 
-def known_batches() -> list[tuple[str, date]]:
-    """Day 1 / Day 2 plus every batch registered in the database, oldest first."""
-    batches = {b: date.fromisoformat(d) for b, d in BATCH_DATES.items()}
-    try:
-        for _, row in query("SELECT batch_id, batch_date FROM batch_registry").iterrows():
-            batches[row["batch_id"]] = pd.to_datetime(row["batch_date"]).date()
-    except Exception:
-        log.exception("could not read batch registry")
-    return sorted(batches.items(), key=lambda kv: (kv[1], kv[0]))
-
-
-def run_message(summary: dict) -> str:
-    facts = summary["facts"]
-    text_ = (f"{summary['batch_id']} done: {facts['inserted']} new, {facts['corrected']} corrected, "
-             f"{facts['unchanged']} already loaded (unchanged), {summary['rows_rejected']} quarantined.")
-    if facts.get("skipped_newer_exists"):
-        text_ += f" {facts['skipped_newer_exists']} kept from a newer batch."
-    return text_
-
-
-def run_batch(batch_id: str, batch_date=None):
-    from pipeline.run_pipeline import run
-    with st.spinner(f"Running {batch_id}: landing zone → S3 bronze → clean → quarantine → MySQL…"):
-        try:
-            return run(batch_id, engine=engine(), batch_date=batch_date)
-        finally:
-            query.clear()
-
-
 def sidebar():
     st.sidebar.header("Pipeline")
-    batch_id = st.sidebar.selectbox("Batch", [b for b, _ in known_batches()])
+    batch_id = st.sidebar.selectbox("Batch", sorted(BATCH_FILES))
     if st.sidebar.button("Run batch", type="primary"):
-        try:
-            st.sidebar.success(run_message(run_batch(batch_id)))
-        except Exception as exc:
-            log.exception("batch run failed")
-            st.sidebar.error(f"Run failed and was rolled back: {str(exc)[:200]}")
-    st.sidebar.caption("Re-running a batch is safe: unchanged rows are skipped. "
-                       "New daily drops are added in the Upload & run tab.")
+        from pipeline.run_pipeline import run
+        with st.spinner(f"Running {batch_id}: S3 → clean → quarantine → MySQL…"):
+            try:
+                summary = run(batch_id, engine=engine())
+                st.sidebar.success(
+                    f"{batch_id} done: {summary['facts']['inserted']} new, "
+                    f"{summary['facts']['corrected']} corrected, {summary['rows_rejected']} quarantined.")
+            except Exception as exc:
+                log.exception("batch run failed")
+                st.sidebar.error(f"Run failed and was rolled back: {str(exc)[:200]}")
+        query.clear()
+    st.sidebar.caption("Re-running a batch is safe: unchanged rows are skipped.")
     if st.sidebar.button("Log out"):
         st.session_state.clear()
         st.rerun()
@@ -276,18 +250,14 @@ def tab_data_quality():
 
 
 def tab_day2():
-    latest = query("SELECT batch_id, batch_date FROM v_latest_batch")
-    if len(latest):
-        st.info(f"Showing the latest batch: **{latest.iloc[0]['batch_id']}** "
-                f"(business date {latest.iloc[0]['batch_date']}), compared with the batch before it.")
     st.subheader("KPI 11 · Day-over-day incremental reconciliation")
     left, right = st.columns([1, 2])
     left.dataframe(query("SELECT * FROM kpi11_incremental_counts"), hide_index=True, use_container_width=True)
-    deltas = query("SELECT * FROM kpi11_kpi_deltas ORDER BY kpi_name, latest_rank")
+    deltas = query("SELECT * FROM kpi11_kpi_deltas ORDER BY kpi_name, day2_rank")
     if len(deltas):
         right.dataframe(deltas, hide_index=True, use_container_width=True, height=300)
     else:
-        right.info("The before/after KPI comparison appears once at least two batches have run.")
+        right.info("Day 1 vs Day 2 KPI comparison appears after both batches have run with snapshots.")
     how("a corrected transaction UPDATEs its existing row (old values go to the correction log), "
         "so KPI totals never double-count.")
 
@@ -301,62 +271,9 @@ def tab_day2():
     how("each change closes the old version (valid_to) and opens a new one (valid_from); "
         "a self-join on old.valid_to = new.valid_from finds the transitions.")
 
-    st.subheader("KPI 13 · New account activations in the latest batch")
+    st.subheader("KPI 13 · New account activations in Day 2")
     st.dataframe(query("SELECT * FROM kpi13_new_activations ORDER BY first_txn_ts"), hide_index=True,
                  use_container_width=True)
-
-
-def tab_upload():
-    st.subheader("Upload a new daily drop and run the pipeline")
-    st.write("This plays the role of the bank's upstream systems: files go into the **S3 landing zone** "
-             "(`landing/batch=<id>/`), then the same pipeline lands them unchanged in bronze, cleans them, "
-             "quarantines bad rows and applies SCD2 changes and corrections. Upload only what changed: "
-             "a missing file means \"nothing new\" for that entity.")
-    batches = known_batches()
-    latest_date = batches[-1][1] if batches else date.fromisoformat(BATCH_DATES["day2"])
-    day_numbers = [int(b[3:]) for b, _ in batches if b.startswith("day") and b[3:].isdigit()]
-    c1, c2 = st.columns(2)
-    batch_id = c1.text_input("Batch ID", value=f"day{max(day_numbers, default=2) + 1}",
-                             help="lowercase letters, digits or _ (max 10), e.g. day3")
-    batch_date = c2.date_input("Business date of this drop", value=latest_date + timedelta(days=1))
-    labels = {"branches": "Branches (CSV)", "customers": "Customers / customer updates (CSV)",
-              "products": "Products (JSON)", "transactions": "Transactions incl. late corrections (CSV)"}
-    uploads = {e: st.file_uploader(labels[e], type=[ENTITY_EXTENSION[e].lstrip(".")], key=f"upload_{e}")
-               for e in ENTITIES}
-
-    if st.button("Upload to landing zone & run", type="primary"):
-        from pipeline.sources import upload_landing
-        try:
-            validate_batch_id(batch_id)
-            existing = dict(batches)
-            if batch_id in BATCH_FILES:
-                raise ValueError(f"{batch_id} is an official drop; use a new batch id such as "
-                                 f"day{max(day_numbers, default=2) + 1}")
-            if batch_id in existing and existing[batch_id] != batch_date:
-                raise ValueError(f"{batch_id} already exists with business date {existing[batch_id]}")
-            if batch_id not in existing and batch_date <= latest_date:
-                raise ValueError(f"the business date must be after the latest batch ({latest_date})")
-            chosen = {e: f for e, f in uploads.items() if f is not None}
-            if not chosen:
-                raise ValueError("upload at least one file")
-            for entity, f in chosen.items():
-                where = upload_landing(get_settings(), batch_id, entity, f.name, f.getvalue())
-                st.write(f"Landed `{f.name}` → `{where}`")
-            st.success(run_message(run_batch(batch_id, batch_date)))
-            st.caption("See the Incremental tab for this batch's changes and the Data quality tab for its scorecard.")
-        except Exception as exc:
-            log.exception("upload and run failed")
-            st.error(f"Not run: {str(exc)[:300]}")
-
-    samples = Path(__file__).resolve().parent.parent / "data" / "samples" / "day3"
-    if samples.is_dir():
-        with st.expander("Sample Day 3 files to try"):
-            st.caption("New transactions (one for a newly onboarded customer), one late correction of a "
-                       "Day 2 transaction, one orphan row, one exact duplicate, and a KYC Pending → Verified update.")
-            for f in sorted(samples.iterdir()):
-                st.download_button(f"Download {f.name}", f.read_bytes(), f.name, key=f"sample_{f.name}")
-    how("files are stored as received in S3 landing and bronze; the batch's business date orders it after "
-        "earlier batches, so an older batch can never overwrite newer data.")
 
 
 def tab_runs():
@@ -373,7 +290,7 @@ def tab_runs():
 
 TABS = {"Overview": tab_overview, "Customers": tab_customers, "Branches": tab_branches,
         "Products": tab_products, "Risk & KYC": tab_risk, "Data quality": tab_data_quality,
-        "Incremental (latest batch)": tab_day2, "Upload & run": tab_upload, "Pipeline runs": tab_runs}
+        "Day 2 changes": tab_day2, "Pipeline runs": tab_runs}
 
 
 def main():
