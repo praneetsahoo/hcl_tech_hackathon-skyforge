@@ -1,0 +1,26 @@
+# RetailBank Streamlit dashboard — installed by infra/deploy.sh
+[Unit]
+Description=RetailBank dashboard (Streamlit)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=retailbank
+Group=retailbank
+WorkingDirectory=/opt/retailbank/app
+EnvironmentFile=/etc/retailbank/retailbank.env
+ExecStart=/opt/retailbank/venv/bin/streamlit run dashboard/app.py --server.port 80 --server.address 0.0.0.0 --server.headless true --browser.gatherUsageStats false
+Restart=on-failure
+RestartSec=5
+# bind port 80 without running as root
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+CapabilityBoundingSet=CAP_NET_BIND_SERVICE
+NoNewPrivileges=true
+ProtectSystem=full
+ProtectHome=true
+PrivateTmp=true
+StandardOutput=append:/var/log/retailbank/dashboard.log
+StandardError=append:/var/log/retailbank/dashboard.log
+
+[Install]
+WantedBy=multi-user.target

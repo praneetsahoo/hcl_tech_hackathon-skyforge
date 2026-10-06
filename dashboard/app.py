@@ -38,6 +38,15 @@ def dashboard_password() -> str:
 
 
 @st.cache_resource
+def configure_logging():
+    """Once per server process: pipeline runs started from the dashboard log
+    to the same file CloudWatch reads (so their ERRORs raise the alarm)."""
+    from pipeline.run_pipeline import setup_logging
+    setup_logging(get_settings().log_file)
+    return True
+
+
+@st.cache_resource
 def engine():
     return get_engine()
 
@@ -285,6 +294,7 @@ TABS = {"Overview": tab_overview, "Customers": tab_customers, "Branches": tab_br
 
 
 def main():
+    configure_logging()
     if not login():
         return
     st.title("RetailBank Customer Transaction Analytics")
